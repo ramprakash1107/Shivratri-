@@ -1,58 +1,84 @@
+
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>Happy Maha Shivratri</title>
 <style>
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:black;
-  color:white;
-  overflow:hidden;
+body {
+  background: url('https://images.pexels.com/photos/10666004/pexels-photo-10666004.jpeg') center/cover no-repeat;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: white;
+  margin: 0;
+  padding: 0;
 }
-
-#bell{
-  font-size:120px;
-  cursor:pointer;
-  animation: glow 2s infinite;
+.container {
+  padding: 50px;
 }
-
-@keyframes glow{
-  0%{text-shadow:0 0 10px gold;}
-  50%{text-shadow:0 0 30px orange;}
-  100%{text-shadow:0 0 10px gold;}
+input {
+  padding: 10px;
+  font-size: 18px;
+  width: 250px;
+  margin-top: 20px;
 }
-
-#wish{
-  display:none;
-  font-size:40px;
-  text-align:center;
-  transform: perspective(500px) rotateX(30deg);
-  animation: zoom 2s forwards;
+button {
+  padding: 12px 20px;
+  font-size: 18px;
+  margin-top: 15px;
+  cursor: pointer;
 }
-
-@keyframes zoom{
-  from{transform:scale(0);}
-  to{transform:scale(1);}
+#wishBox {
+  display: none;
+  margin-top: 30px;
+  font-size: 28px;
+  color: gold;
+  text-shadow: 2px 2px 6px black;
+}
+.shareBtn {
+  display: none;
+  margin-top: 20px;
 }
 </style>
 </head>
-
 <body>
 
-<div id="bell" onclick="showWish()">🔔</div>
+<div class="container">
+  <h1>ॐ नमः शिवाय</h1>
+  <p>Maha Shivratri Wishes Website</p>
 
-<div id="wish">
-  ॐ नमः शिवाय <br>
-  Happy Maha Shivratri
+  <!-- Name input -->
+  <input type="text" id="nameInput" placeholder="Apna Naam Likhiye">
+  <br>
+  <button onclick="showWish()">Generate Wish</button>
+
+  <!-- Personalized Wish -->
+  <div id="wishBox"></div>
+
+  <!-- WhatsApp Share -->
+  <button class="shareBtn" onclick="shareWhatsApp()">WhatsApp par Share Kare</button>
 </div>
 
 <script>
-function showWish(){
-  document.getElementById("bell").style.display="none";
-  document.getElementById("wish").style.display="block";
+function showWish() {
+  let name = document.getElementById('nameInput').value.trim();
+  if (name === "") {
+    alert("Please enter your name");
+    return;
+  }
+
+  let wishText = `ॐ नमः शिवाय 🙏\nHappy Maha Shivratri!\n\n${name} ki taraf se aapko hardik शुभकामनाएं!`;
+  document.getElementById('wishBox').innerText = wishText;
+  document.getElementById('wishBox').style.display = "block";
+  document.querySelector('.shareBtn').style.display = "inline-block";
+}
+
+function shareWhatsApp() {
+  let text = encodeURIComponent(
+    document.getElementById('wishBox').innerText +
+    "\n\nShare this message with your friends and family!"
+  );
+  window.open(`https://wa.me/?text=${text}`, "_blank");
 }
 </script>
 
