@@ -4,31 +4,47 @@
   <meta charset="UTF-8">
   <title>Maha Shivratri Wishes</title>
 </head>
-<body style="text-align:center; font-family:Arial; background:#f2f2f2; padding:40px;">
 
-  <h1>🙏 Happy Maha Shivratri 🙏</h1>
+<body style="text-align:center;font-family:Arial;background:#eef2f3;padding:30px;">
 
-  <p>Apna naam likhiye:</p>
+<h1>🔱 Happy Maha Shivratri 🔱</h1>
 
-  <input id="name" placeholder="Yaha naam likhe">
+<p id="wishText" style="font-size:20px;margin-top:20px;"></p>
 
-  <br><br>
+<hr>
 
-  <button onclick="wish()">Wish Dekhe</button>
+<h3>Apna naam likh kar aage bheje</h3>
 
-  <p id="msg" style="margin-top:20px; font-size:18px;"></p>
+<input id="myname" placeholder="Apna naam likhe" style="padding:8px;">
+<br><br>
+<button onclick="createLink()">Link Banao</button>
 
-  <script>
-    function wish(){
-      var n = document.getElementById("name").value;
-      if(n==""){
-        alert("Naam likhiye");
-      }else{
-        document.getElementById("msg").innerHTML =
-        n + " ki taraf se<br>🙏 Happy Maha Shivratri 🙏";
-      }
+<p id="link" style="word-break:break-all;margin-top:15px;"></p>
+
+<script>
+  // URL se name lena
+  const params = new URLSearchParams(window.location.search);
+  const sender = params.get("name");
+
+  if(sender){
+    document.getElementById("wishText").innerHTML =
+    "🙏 " + sender + " ki taraf se aapko<br><b>Maha Shivratri ki hardik shubhkamnayein</b><br>🔱 Bhagwan Shiv aapki har manokamna poori kare 🔱";
+  } else {
+    document.getElementById("wishText").innerHTML =
+    "🙏 Maha Shivratri ki hardik shubhkamnayein 🙏";
+  }
+
+  function createLink(){
+    var n = document.getElementById("myname").value;
+    if(n==""){
+      alert("Naam likhiye");
+    } else {
+      var url = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(n);
+      document.getElementById("link").innerHTML =
+      "Is link ko share kare:<br><a href='"+url+"'>"+url+"</a>";
     }
-  </script>
+  }
+</script>
 
 </body>
 </html>
