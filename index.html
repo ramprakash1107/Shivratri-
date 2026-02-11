@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -5,69 +6,42 @@
 <title>🔱 Happy Maha Shivratri 🔱</title>
 
 <style>
-*{box-sizing:border-box;}
 body{
   margin:0;
   font-family: Arial, sans-serif;
   background:black;
   color:white;
+  text-align:center;
   overflow-x:hidden;
 }
 
-/* FULL SCREEN SHIV IMAGE */
+/* HERO */
 .hero{
-  position:relative;
   height:100vh;
-  background:url("https://upload.wikimedia.org/wikipedia/commons/6/6d/Lord_Shiva_-_Bholenath.jpg") center/cover no-repeat;
-  animation: zoom 12s infinite alternate;
+  background:
+    linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+    url("https://images.unsplash.com/photo-1610128114197-485d933885c5?auto=format&fit=crop&w=1200&q=80");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  animation: zoom 15s infinite alternate;
 }
 @keyframes zoom{
   from{transform:scale(1);}
   to{transform:scale(1.1);}
 }
-.overlay{
-  position:absolute;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.6);
-}
-.content{
-  position:relative;
-  z-index:2;
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:20px;
-  animation: fadeIn 2s ease;
-}
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(30px);}
-  to{opacity:1; transform:translateY(0);}
-}
 
 h1{font-size:42px;}
 #wish{font-size:22px; margin:15px 0;}
 
-/* FLOWERS */
-.flower{
-  position:fixed;
-  top:-50px;
-  font-size:24px;
-  animation: fall linear infinite;
-}
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(360deg);}
-}
-
-/* BOTTOM SECTION */
 .section{
   background:#0f2027;
   padding:30px 15px;
-  text-align:center;
 }
+
 input{
   padding:12px;
   width:90%;
@@ -78,39 +52,65 @@ input{
 }
 button{
   padding:12px 25px;
-  margin-top:12px;
+  margin:8px;
   border:none;
   border-radius:10px;
-  background:#ff9800;
   font-size:16px;
 }
 .whatsapp{background:#25D366;}
+.music{background:#2196f3;}
+.theme{background:#9c27b0;}
 a{color:yellow; word-break:break-all;}
+
+/* FLOWER + RUDRAKSH */
+.drop{
+  position:fixed;
+  top:-50px;
+  font-size:24px;
+  animation: fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);}
+}
+
+/* FIREWORK */
+.fire{
+  position:fixed;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:yellow;
+  animation: blast 1s linear forwards;
+}
+@keyframes blast{
+  to{
+    transform:scale(15);
+    opacity:0;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<!-- BACKGROUND MUSIC -->
-<audio autoplay loop>
+<!-- MUSIC -->
+<audio id="shivMusic" loop>
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4c8a6d1b68.mp3" type="audio/mpeg">
 </audio>
 
-<!-- HERO SECTION -->
-<div class="hero">
-  <div class="overlay"></div>
-  <div class="content">
-    <h1>🔱 Happy Maha Shivratri 🔱</h1>
-    <p id="wish"></p>
-    <p>
-      ✨ भोलेनाथ आपकी हर मनोकामना पूरी करें<br>
-      ✨ जीवन में सुख-शांति और समृद्धि आए<br>
-      ✨ हर हर महादेव 🔱
-    </p>
-  </div>
+<div class="hero" id="hero">
+  <h1>🔱 Happy Maha Shivratri 🔱</h1>
+  <p id="wish"></p>
+  <p>
+    ✨ भोलेनाथ आपकी हर मनोकामना पूरी करें<br>
+    ✨ जीवन में सुख-शांति और समृद्धि आए<br>
+    ✨ हर हर महादेव 🔱
+  </p>
+
+  <button class="music" onclick="playMusic()">🔊 Music On</button>
+  <button class="theme" onclick="changeTheme()">🎨 Change Theme</button>
 </div>
 
-<!-- SHARE SECTION -->
 <div class="section">
   <h2>🙏 Apna naam likh kar wish bheje 🙏</h2>
   <input id="name" placeholder="Apna naam likhe">
@@ -122,44 +122,66 @@ a{color:yellow; word-break:break-all;}
 
 <script>
 // NAME FROM URL
-const params = new URLSearchParams(window.location.search);
-const sender = params.get("name");
+const params=new URLSearchParams(location.search);
+const sender=params.get("name");
+document.getElementById("wish").innerHTML=sender
+ ? "💐 <b>"+sender+"</b> ki taraf se<br>Maha Shivratri ki hardik shubhkamnayein 🙏"
+ : "🙏 Maha Shivratri ki hardik shubhkamnayein 🙏";
 
-if(sender){
-  document.getElementById("wish").innerHTML =
-  "💐 <b>" + sender + "</b> ki taraf se<br>Maha Shivratri ki hardik shubhkamnayein 🙏";
-}else{
-  document.getElementById("wish").innerHTML =
-  "🙏 Maha Shivratri ki hardik shubhkamnayein 🙏";
+// MUSIC
+function playMusic(){
+  document.getElementById("shivMusic").play();
 }
 
-// LINK MAKER
+// LINK
 function makeLink(){
-  var n = document.getElementById("name").value;
-  if(n==""){ alert("Naam likhiye"); return; }
-  var url = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(n);
-  document.getElementById("share").innerHTML =
-  "👉 Is link ko share kare:<br><a href='"+url+"'>"+url+"</a>";
-  window.generatedLink = url;
+  var n=name.value;
+  if(!n){alert("Naam likhiye");return;}
+  var url=location.origin+location.pathname+"?name="+encodeURIComponent(n);
+  share.innerHTML="👉 Is link ko share kare:<br><a href='"+url+"'>"+url+"</a>";
+  window.generatedLink=url;
 }
 
 // WHATSAPP
 function whatsapp(){
-  if(!window.generatedLink){ alert("Pehle link banaye"); return; }
-  var text = "🔱 Happy Maha Shivratri 🔱\n\nAapke liye special wish 👇\n" + window.generatedLink;
-  window.open("https://wa.me/?text=" + encodeURIComponent(text));
+  if(!window.generatedLink){alert("Pehle link banaye");return;}
+  window.open("https://wa.me/?text="+encodeURIComponent(
+    "🔱 Happy Maha Shivratri 🔱\n\nSpecial wish 👇\n"+window.generatedLink
+  ));
 }
 
-// FLOWER RAIN
+// FLOWER + RUDRAKSH RAIN
+setInterval(()=>{
+  const d=document.createElement("div");
+  d.className="drop";
+  d.innerHTML=Math.random()>0.5?"🌸":"📿";
+  d.style.left=Math.random()*100+"vw";
+  d.style.animationDuration=(3+Math.random()*5)+"s";
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(),8000);
+},400);
+
+// FIREWORKS
 setInterval(()=>{
   const f=document.createElement("div");
-  f.className="flower";
-  f.innerHTML="🌸";
+  f.className="fire";
   f.style.left=Math.random()*100+"vw";
-  f.style.animationDuration=(3+Math.random()*5)+"s";
+  f.style.top=Math.random()*60+"vh";
   document.body.appendChild(f);
-  setTimeout(()=>f.remove(),8000);
-},500);
+  setTimeout(()=>f.remove(),1000);
+},1200);
+
+// THEME CHANGE
+let t=0;
+function changeTheme(){
+  const themes=[
+    "linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url(https://images.unsplash.com/photo-1610128114197-485d933885c5)",
+    "linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url(https://images.unsplash.com/photo-1548013146-72479768bada)",
+    "linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url(https://images.unsplash.com/photo-1600962815705-d98d7c24a26e)"
+  ];
+  t=(t+1)%themes.length;
+  hero.style.background=themes[t]+" center/cover";
+}
 </script>
 
 </body>
