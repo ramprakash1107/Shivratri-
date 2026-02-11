@@ -1,15 +1,34 @@
-<script>
-function showWish(){
-  var n = document.getElementById("name").value;
-  if(n==""){
-    alert("Naam likhna zaroori hai!");
-  }else{
-    document.getElementById("wish").innerHTML =
-    "🙏 Har Har Mahadev 🙏<br><br>" +
-    "<b>" + n + " ki taraf se</b><br><br>" +
-    "aapko aur aapke parivaar ko<br>" +
-    "<b>Maha Shivaratri ki hardik shubhkamnayein</b> 🌸<br>" +
-    "Bhagwan Shiv aap par kripa banaye rakhe 🔱";
-  }
-}
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Maha Shivratri Wishes</title>
+</head>
+<body style="text-align:center; font-family:Arial; background:#f2f2f2; padding:40px;">
+
+  <h1>🙏 Happy Maha Shivratri 🙏</h1>
+
+  <p>Apna naam likhiye:</p>
+
+  <input id="name" placeholder="Yaha naam likhe">
+
+  <br><br>
+
+  <button onclick="wish()">Wish Dekhe</button>
+
+  <p id="msg" style="margin-top:20px; font-size:18px;"></p>
+
+  <script>
+    function wish(){
+      var n = document.getElementById("name").value;
+      if(n==""){
+        alert("Naam likhiye");
+      }else{
+        document.getElementById("msg").innerHTML =
+        n + " ki taraf se<br>🙏 Happy Maha Shivratri 🙏";
+      }
+    }
+  </script>
+
+</body>
+</html>
