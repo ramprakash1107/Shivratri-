@@ -5,80 +5,123 @@
 <title>🔱 Happy Maha Shivratri 🔱</title>
 
 <style>
+*{box-sizing:border-box;}
 body{
   margin:0;
-  padding:0;
-  text-align:center;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  background:black;
   color:white;
+  overflow-x:hidden;
 }
-.container{
+
+/* FULL SCREEN SHIV IMAGE */
+.hero{
+  position:relative;
+  height:100vh;
+  background:url("https://upload.wikimedia.org/wikipedia/commons/6/6d/Lord_Shiva_-_Bholenath.jpg") center/cover no-repeat;
+  animation: zoom 12s infinite alternate;
+}
+@keyframes zoom{
+  from{transform:scale(1);}
+  to{transform:scale(1.1);}
+}
+.overlay{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.6);
+}
+.content{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
   padding:20px;
+  animation: fadeIn 2s ease;
 }
-img{
-  width:220px;
-  margin-top:20px;
-  animation: glow 2s infinite alternate;
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
 }
-@keyframes glow{
-  from{filter: drop-shadow(0 0 5px #fff);}
-  to{filter: drop-shadow(0 0 20px #00ffff);}
+
+h1{font-size:42px;}
+#wish{font-size:22px; margin:15px 0;}
+
+/* FLOWERS */
+.flower{
+  position:fixed;
+  top:-50px;
+  font-size:24px;
+  animation: fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);}
+}
+
+/* BOTTOM SECTION */
+.section{
+  background:#0f2027;
+  padding:30px 15px;
+  text-align:center;
 }
 input{
-  padding:10px;
-  width:80%;
-  max-width:300px;
-  border-radius:8px;
+  padding:12px;
+  width:90%;
+  max-width:320px;
   border:none;
+  border-radius:10px;
   font-size:16px;
 }
 button{
-  padding:10px 20px;
-  margin-top:10px;
+  padding:12px 25px;
+  margin-top:12px;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   background:#ff9800;
   font-size:16px;
 }
-a{
-  color:yellow;
-  word-break:break-all;
-}
+.whatsapp{background:#25D366;}
+a{color:yellow; word-break:break-all;}
 </style>
 </head>
 
 <body>
-<div class="container">
 
-<h1>🔱 Happy Maha Shivratri 🔱</h1>
+<!-- BACKGROUND MUSIC -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4c8a6d1b68.mp3" type="audio/mpeg">
+</audio>
 
-<!-- WORKING SHIV IMAGE -->
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Shiva_Bholenath.jpg" alt="Lord Shiva">
+<!-- HERO SECTION -->
+<div class="hero">
+  <div class="overlay"></div>
+  <div class="content">
+    <h1>🔱 Happy Maha Shivratri 🔱</h1>
+    <p id="wish"></p>
+    <p>
+      ✨ भोलेनाथ आपकी हर मनोकामना पूरी करें<br>
+      ✨ जीवन में सुख-शांति और समृद्धि आए<br>
+      ✨ हर हर महादेव 🔱
+    </p>
+  </div>
+</div>
 
-<p id="wish" style="font-size:20px;margin-top:15px;"></p>
-
-<p>
-✨ भोलेनाथ आपकी हर मनोकामना पूरी करें<br>
-✨ जीवन में सुख-शांति और समृद्धि आए<br>
-✨ हर हर महादेव 🔱
-</p>
-
-<hr>
-
-<h3>🙏 Apna naam likh kar wish bheje 🙏</h3>
-
-<input id="name" placeholder="Apna naam likhe">
-<br>
-<button onclick="makeLink()">Link Banao</button>
-
-<p id="share"></p>
-
-<button onclick="whatsapp()" style="background:#25D366;">WhatsApp par bheje</button>
-
+<!-- SHARE SECTION -->
+<div class="section">
+  <h2>🙏 Apna naam likh kar wish bheje 🙏</h2>
+  <input id="name" placeholder="Apna naam likhe">
+  <br>
+  <button onclick="makeLink()">Link Banao</button>
+  <p id="share"></p>
+  <button class="whatsapp" onclick="whatsapp()">WhatsApp par bheje</button>
 </div>
 
 <script>
+// NAME FROM URL
 const params = new URLSearchParams(window.location.search);
 const sender = params.get("name");
 
@@ -90,28 +133,33 @@ if(sender){
   "🙏 Maha Shivratri ki hardik shubhkamnayein 🙏";
 }
 
+// LINK MAKER
 function makeLink(){
   var n = document.getElementById("name").value;
-  if(n==""){
-    alert("Naam likhiye");
-    return;
-  }
+  if(n==""){ alert("Naam likhiye"); return; }
   var url = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(n);
   document.getElementById("share").innerHTML =
   "👉 Is link ko share kare:<br><a href='"+url+"'>"+url+"</a>";
   window.generatedLink = url;
 }
 
+// WHATSAPP
 function whatsapp(){
-  if(!window.generatedLink){
-    alert("Pehle link banaye");
-    return;
-  }
-  var text = "🔱 Happy Maha Shivratri 🔱\n\n" +
-             "Aapke liye special wish 👇\n" +
-             window.generatedLink;
+  if(!window.generatedLink){ alert("Pehle link banaye"); return; }
+  var text = "🔱 Happy Maha Shivratri 🔱\n\nAapke liye special wish 👇\n" + window.generatedLink;
   window.open("https://wa.me/?text=" + encodeURIComponent(text));
 }
+
+// FLOWER RAIN
+setInterval(()=>{
+  const f=document.createElement("div");
+  f.className="flower";
+  f.innerHTML="🌸";
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=(3+Math.random()*5)+"s";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),8000);
+},500);
 </script>
 
 </body>
