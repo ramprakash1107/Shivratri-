@@ -1,49 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <title>Maha Shivratri Wishes</title>
+<meta charset="UTF-8">
+<title>🔱 Happy Maha Shivratri 🔱</title>
+
+<style>
+body{
+  margin:0;
+  padding:0;
+  text-align:center;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+}
+.container{
+  padding:20px;
+}
+img{
+  width:220px;
+  margin-top:20px;
+  animation: glow 2s infinite alternate;
+}
+@keyframes glow{
+  from{filter: drop-shadow(0 0 5px #fff);}
+  to{filter: drop-shadow(0 0 20px #00ffff);}
+}
+input{
+  padding:10px;
+  width:80%;
+  max-width:300px;
+  border-radius:8px;
+  border:none;
+  font-size:16px;
+}
+button{
+  padding:10px 20px;
+  margin-top:10px;
+  border:none;
+  border-radius:8px;
+  background:#ff9800;
+  font-size:16px;
+}
+a{
+  color:yellow;
+  word-break:break-all;
+}
+</style>
 </head>
 
-<body style="text-align:center;font-family:Arial;background:#eef2f3;padding:30px;">
+<body>
+<div class="container">
 
 <h1>🔱 Happy Maha Shivratri 🔱</h1>
 
-<p id="wishText" style="font-size:20px;margin-top:20px;"></p>
+<img src="https://i.imgur.com/6X4JY8Z.png" alt="Lord Shiva">
+
+<p id="wish" style="font-size:20px;margin-top:15px;"></p>
+
+<p style="margin-top:10px;">
+✨ भोलेनाथ आपकी हर मनोकामना पूरी करें  
+<br>✨ जीवन में सुख-शांति और समृद्धि आए  
+<br>✨ हर हर महादेव 🔱
+</p>
 
 <hr>
 
-<h3>Apna naam likh kar aage bheje</h3>
+<h3>🙏 Apna naam likh kar wish bheje 🙏</h3>
 
-<input id="myname" placeholder="Apna naam likhe" style="padding:8px;">
-<br><br>
-<button onclick="createLink()">Link Banao</button>
+<input id="name" placeholder="Apna naam likhe">
+<br>
+<button onclick="makeLink()">Link Banao</button>
 
-<p id="link" style="word-break:break-all;margin-top:15px;"></p>
+<p id="share"></p>
+
+<button onclick="whatsapp()" style="background:#25D366;">WhatsApp par bheje</button>
+
+</div>
 
 <script>
-  // URL se name lena
-  const params = new URLSearchParams(window.location.search);
-  const sender = params.get("name");
+const params = new URLSearchParams(window.location.search);
+const sender = params.get("name");
 
-  if(sender){
-    document.getElementById("wishText").innerHTML =
-    "🙏 " + sender + " ki taraf se aapko<br><b>Maha Shivratri ki hardik shubhkamnayein</b><br>🔱 Bhagwan Shiv aapki har manokamna poori kare 🔱";
-  } else {
-    document.getElementById("wishText").innerHTML =
-    "🙏 Maha Shivratri ki hardik shubhkamnayein 🙏";
-  }
+if(sender){
+  document.getElementById("wish").innerHTML =
+  "💐 <b>" + sender + "</b> ki taraf se<br>Maha Shivratri ki hardik shubhkamnayein 🙏";
+}else{
+  document.getElementById("wish").innerHTML =
+  "🙏 Maha Shivratri ki hardik shubhkamnayein 🙏";
+}
 
-  function createLink(){
-    var n = document.getElementById("myname").value;
-    if(n==""){
-      alert("Naam likhiye");
-    } else {
-      var url = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(n);
-      document.getElementById("link").innerHTML =
-      "Is link ko share kare:<br><a href='"+url+"'>"+url+"</a>";
-    }
+function makeLink(){
+  var n = document.getElementById("name").value;
+  if(n==""){
+    alert("Naam likhiye");
+    return;
   }
+  var url = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(n);
+  document.getElementById("share").innerHTML =
+  "👉 Is link ko share kare:<br><a href='"+url+"'>"+url+"</a>";
+  window.generatedLink = url;
+}
+
+function whatsapp(){
+  if(!window.generatedLink){
+    alert("Pehle link banaye");
+    return;
+  }
+  var text = "🔱 Happy Maha Shivratri 🔱\n\n" +
+             "Aapke liye special wish 👇\n" +
+             window.generatedLink;
+  window.open("https://wa.me/?text=" + encodeURIComponent(text));
+}
 </script>
 
 </body>
