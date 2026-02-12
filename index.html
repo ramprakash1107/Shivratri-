@@ -1,65 +1,111 @@
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maha Shivratri Wish</title>
 
 <style>
 body{
     margin:0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom,#a8e6cf,#dcedc1);
+    background:#0f0f0f;
+    font-family:Arial, sans-serif;
+    overflow-x:hidden;
     text-align:center;
 }
 
+/* Card */
 .container{
-    padding:20px;
+    width:92%;
+    max-width:430px;
+    margin:25px auto;
+    padding:25px;
+    background:#1a1a1a;
+    border-radius:25px;
+    box-shadow:0 0 50px gold;
 }
 
-h1{
-    font-size:40px;
-    color:purple;
-    text-shadow:2px 2px 5px black;
+/* Om */
+.om{
+    font-size:60px;
+    color:gold;
+    text-shadow:0 0 20px gold,0 0 50px orange;
 }
 
-.ribbon{
-    background:red;
-    color:white;
-    padding:10px;
-    display:inline-block;
-    border-radius:20px;
-    margin:10px 0;
-    font-size:20px;
+/* 3D Heading */
+.title{
+    font-size:26px;
+    font-weight:bold;
+    color:orange;
+    text-shadow:
+      1px 1px 0 #000,
+      2px 2px 0 #222,
+      3px 3px 10px orange;
 }
 
+/* Shayari */
+.shayari{
+    color:#00ffff;
+    margin-top:15px;
+    line-height:1.6;
+    font-size:16px;
+}
+
+/* Name Line */
+.from{
+    margin-top:15px;
+    font-size:17px;
+    color:yellow;
+    font-weight:bold;
+}
+
+/* Timer */
 .timer{
-    font-size:22px;
-    margin:15px 0;
-    color:black;
+    margin-top:15px;
+    font-size:18px;
+    color:white;
 }
 
-img{
-    width:250px;
-    margin-top:20px;
-}
-
+/* Input */
 input{
+    width:90%;
     padding:10px;
-    width:250px;
-    margin-top:20px;
-    font-size:16px;
+    margin-top:15px;
+    border-radius:8px;
+    border:none;
 }
 
+/* Buttons */
 button{
-    padding:10px 20px;
-    font-size:16px;
-    margin:10px;
+    width:90%;
+    padding:12px;
+    margin-top:10px;
     border:none;
-    border-radius:5px;
+    border-radius:8px;
+    font-size:16px;
     cursor:pointer;
 }
 
-.red{ background:red; color:white;}
-.green{ background:green; color:white;}
+.red{background:red;color:white;}
+.green{background:#00c853;color:white;}
 
+/* Flower */
+.flower{
+    position:fixed;
+    top:-40px;
+    font-size:22px;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    0%{transform:translateY(0) rotate(0);}
+    100%{transform:translateY(100vh) rotate(360deg);}
+}
+
+.footer{
+    margin-top:15px;
+    color:white;
+}
 </style>
 </head>
 
@@ -67,58 +113,101 @@ button{
 
 <div class="container">
 
-<h1 id="username">Your Name</h1>
+<div class="om">ॐ</div>
 
-<div class="ribbon">की तरफ से</div>
+<div class="title">
+🙏 Maha Shivratri Ki <br>Hardik Shubhkamnaye 🙏
+</div>
+
+<div class="shayari">
+ना पूछो मुझसे मेरी पहचान,<br>
+मैं तो भक्त हूं महाकाल का जाना।<br>
+हर हर महादेव की गूंज रहे संसार,<br>
+मुबारक हो शिवरात्रि का त्योहार। 🔱
+</div>
+
+<div class="from" id="nameText"></div>
 
 <div class="timer" id="countdown"></div>
 
-<img src="https://i.imgur.com/4AiXzf8.jpeg">
-
-<br>
-
 <input type="text" id="nameInput" placeholder="अपना नाम लिखें">
-<br>
 
-<button class="red" onclick="generateWish()">Wish बनाएं</button>
-<button class="green" onclick="shareWhatsApp()">WhatsApp पर शेयर करें</button>
+<button class="red" onclick="setName()">Wish बनाएं</button>
+<button class="green" onclick="share()">WhatsApp पर शेयर करें</button>
+
+<div class="footer">Har Har Mahadev 🔱</div>
 
 </div>
 
+<!-- Damru Sound -->
+<audio id="music" autoplay loop>
+<source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 
-// Countdown Timer
-var countDownDate = new Date("Mar 8, 2026 00:00:00").getTime();
+/* ===== Auto Year Timer ===== */
+var now = new Date();
+var year = now.getFullYear();
+var shivratri = new Date("March 15, " + year + " 00:00:00");
 
-var x = setInterval(function() {
-  var now = new Date().getTime();
-  var distance = countDownDate - now;
+if(now > shivratri){
+    shivratri = new Date("March 15, " + (year+1) + " 00:00:00");
+}
 
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+setInterval(function(){
+    var now = new Date().getTime();
+    var distance = shivratri - now;
 
-  document.getElementById("countdown").innerHTML =
-    days + " दिन, " + hours + " घंटे, "
-    + minutes + " मिनट, " + seconds + " सेकंड बाकी";
+    var d = Math.floor(distance/(1000*60*60*24));
+    var h = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    var m = Math.floor((distance%(1000*60*60))/(1000*60));
+    var s = Math.floor((distance%(1000*60))/1000);
 
-}, 1000);
+    document.getElementById("countdown").innerHTML =
+    d+" दिन "+h+" घंटे "+m+" मिनट "+s+" सेकंड बाकी";
+},1000);
 
+/* ===== URL Auto Name ===== */
+const params = new URLSearchParams(window.location.search);
+let urlName = params.get("name");
 
-// Generate Name
-function generateWish(){
+if(urlName){
+    document.getElementById("nameText").innerHTML =
+    "🔱 "+urlName+" की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏";
+}else{
+    document.getElementById("nameText").innerHTML =
+    "🔱 Ramprakash की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏";
+}
+
+/* ===== Set Name ===== */
+function setName(){
     var name = document.getElementById("nameInput").value;
-    document.getElementById("username").innerHTML = name;
+    if(name!=""){
+        document.getElementById("nameText").innerHTML =
+        "🔱 "+name+" की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏";
+    }
 }
 
-// WhatsApp Share
-function shareWhatsApp(){
-    var name = document.getElementById("username").innerText;
-    var message = name + " की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏";
-    var url = "https://wa.me/?text=" + encodeURIComponent(message);
-    window.open(url, "_blank");
+/* ===== Share ===== */
+function share(){
+    var name = document.getElementById("nameInput").value || urlName || "मित्र";
+    var link = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(name);
+    var text = name + " की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏\n" + link;
+    window.open("https://wa.me/?text="+encodeURIComponent(text));
 }
+
+/* ===== Flower Rain ===== */
+function createFlower(){
+    var flower=document.createElement("div");
+    flower.classList.add("flower");
+    flower.innerHTML="🌸";
+    flower.style.left=Math.random()*100+"vw";
+    flower.style.animationDuration=(3+Math.random()*5)+"s";
+    document.body.appendChild(flower);
+    setTimeout(()=>{flower.remove();},8000);
+}
+setInterval(createFlower,400);
 
 </script>
 
