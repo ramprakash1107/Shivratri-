@@ -4,110 +4,190 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maha Shivratri Wishes</title>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGFTG4F9W"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-KSGFTG4F9W');
+</script>
+
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Arial', sans-serif;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        text-align: center;
-        color: #fff;
-        overflow: hidden;
-    }
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  text-align:center;
+  background: linear-gradient(135deg,#ff9800,#e91e63,#9c27b0);
+  color:white;
+  overflow:hidden;
+}
 
-    @keyframes gradientBG {
-        0% {background-position: 0% 50%;}
-        50% {background-position: 100% 50%;}
-        100% {background-position: 0% 50%;}
-    }
+.container{
+  padding:20px;
+}
 
-    h1 {
-        font-size: 4em;
-        margin-bottom: 10px;
-        text-shadow: 4px 4px 10px #000, -2px -2px 5px #fff;
-        transform: rotateX(10deg);
-    }
+.glow{
+  font-size:34px;
+  text-shadow:
+   0 0 5px #fff,
+   0 0 10px #ffeb3b,
+   0 0 20px #ff9800,
+   0 0 40px #ff5722;
+}
 
-    img {
-        width: 250px;
-        height: auto;
-        margin: 20px 0;
-        border-radius: 20px;
-        box-shadow: 0 0 30px #000;
-        transform: rotateY(15deg);
-    }
+h2{
+  margin-top:10px;
+  font-size:22px;
+}
 
-    input {
-        padding: 10px 15px;
-        font-size: 1em;
-        border-radius: 10px;
-        border: none;
-        margin-top: 20px;
-        outline: none;
-    }
+input{
+  padding:12px;
+  width:80%;
+  max-width:300px;
+  border:none;
+  border-radius:8px;
+  font-size:16px;
+}
 
-    .btn {
-        padding: 12px 25px;
-        font-size: 1.2em;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        background: rgba(0,0,0,0.5);
-        color: #fff;
-        margin-top: 15px;
-        transition: 0.3s;
-    }
+button{
+  margin:10px;
+  padding:12px 20px;
+  font-size:16px;
+  border:none;
+  border-radius:8px;
+  background:#00e676;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    .btn:hover {
-        background: rgba(0,0,0,0.8);
-    }
+.shiv-img{
+  width:260px;
+  max-width:90%;
+  margin-top:20px;
+  border-radius:15px;
+  box-shadow:0 0 25px rgba(0,0,0,0.6);
+}
 
-    .wish {
-        margin-top: 20px;
-        font-size: 1.5em;
-        font-weight: bold;
-        text-shadow: 2px 2px 8px #000;
-    }
+#countdown{
+  font-size:20px;
+  margin:15px;
+  font-weight:bold;
+}
+
+/* Falling animations */
+.flower,.maha{
+  position:fixed;
+  top:-20px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall{
+  to{ transform:translateY(110vh); }
+}
 </style>
 </head>
+
 <body>
 
-<h1>🕉️ Har Har Mahadev 🕉️</h1>
+<div class="container" id="capture">
+  <h2 id="fromName"></h2>
 
-<img src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png" alt="Shiv Ji">
+  <h1 class="glow">🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏</h1>
 
-<input type="text" id="userName" placeholder="Apna naam likhe">
-<button class="btn" onclick="generateWish()">Generate Wish & Share</button>
+  <div id="countdown"></div>
 
-<div class="wish" id="wishText"></div>
+  <img class="shiv-img"
+   src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
+
+  <p>Apna naam likhen aur aage share kare</p>
+
+  <input type="text" id="nameInput" placeholder="Yahan apna naam likhen">
+  <br>
+  <button onclick="generateLink()">WhatsApp par Share</button>
+  <button onclick="downloadImage()">Instagram Story Image</button>
+</div>
 
 <script>
-const wishes = [
-    "आपको और आपके परिवार को महा शिवरात्रि की हार्दिक शुभकामनाएँ!",
-    "भोलेनाथ की कृपा आप पर हमेशा बनी रहे।",
-    "शिव जी आपके जीवन में सुख, समृद्धि और स्वास्थ्य लाएँ।",
-    "महाशिवरात्रि के पावन अवसर पर आपकी हर मनोकामना पूरी हो।",
-    "ओम नमः शिवाय! आपके जीवन में हमेशा सकारात्मक ऊर्जा बनी रहे।"
-];
+// Naam from link
+const params = new URLSearchParams(window.location.search);
+const nm = params.get("name");
+if(nm){
+  document.getElementById("fromName").innerText =
+    decodeURIComponent(nm) + " ki taraf se";
+}
 
-function generateWish() {
-    const name = document.getElementById('userName').value || "आप";
-    const randomIndex = Math.floor(Math.random() * wishes.length);
-    const wishText = `${name}, ${wishes[randomIndex]}`;
-    document.getElementById('wishText').innerText = wishText;
+// WhatsApp link generator
+function generateLink(){
+  const n = document.getElementById("nameInput").value.trim();
+  if(!n){ alert("Apna naam likhen"); return; }
 
-    // WhatsApp share link
-    const encoded = encodeURIComponent(wishText);
-    window.open(`https://wa.me/?text=${encoded}`, '_blank');
+  const link =
+    location.origin + location.pathname + "?name=" + encodeURIComponent(n);
+
+  const msg =
+    "🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏\n\n" +
+    n + " ki taraf se\n\n" + link;
+
+  window.open("https://wa.me/?text="+encodeURIComponent(msg));
+}
+
+// Countdown (15 Feb)
+const target = new Date("2026-02-15T00:00:00").getTime();
+setInterval(()=>{
+  const now = new Date().getTime();
+  const d = target - now;
+  if(d<0){
+    document.getElementById("countdown").innerText="🙏 Shivratri Mubarak 🙏";
+    return;
+  }
+  const days=Math.floor(d/(1000*60*60*24));
+  const hrs=Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  const min=Math.floor((d%(1000*60*60))/(1000*60));
+  document.getElementById("countdown").innerText=
+    `⏳ ${days} din ${hrs} ghante ${min} minute baki`;
+},1000);
+
+// Flower rain
+const flowers=["🌸","🌺","🌼","🌷"];
+setInterval(()=>{
+  const f=document.createElement("div");
+  f.className="flower";
+  f.innerText=flowers[Math.floor(Math.random()*flowers.length)];
+  f.style.left=Math.random()*100+"vw";
+  f.style.fontSize="24px";
+  f.style.animationDuration=(3+Math.random()*3)+"s";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),6000);
+},300);
+
+// Har Har Mahadev rain
+setInterval(()=>{
+  const m=document.createElement("div");
+  m.className="maha";
+  m.innerText="Har Har Mahadev";
+  m.style.left=Math.random()*100+"vw";
+  m.style.fontSize="14px";
+  m.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(m);
+  setTimeout(()=>m.remove(),8000);
+},700);
+
+// Instagram Image download
+function downloadImage(){
+  html2canvas(document.getElementById("capture")).then(canvas=>{
+    const link=document.createElement("a");
+    link.download="Maha-Shivratri-Wish.png";
+    link.href=canvas.toDataURL();
+    link.click();
+  });
 }
 </script>
+
+<!-- html2canvas -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 </body>
 </html>
