@@ -19,6 +19,7 @@ gtag('config', 'G-KSGFTG4F9W');
 
 body{
   margin:0;
+  min-height:100vh;
   font-family:'Poppins',Arial,sans-serif;
   text-align:center;
   color:white;
@@ -35,28 +36,53 @@ body{
 }
 
 .container{
-  padding:20px 15px 70px;
+  padding:20px 15px 40px;
   position:relative;
   z-index:2;
 }
 
 /* BIG NAME */
 .big-name{
-  font-size:44px;
+  font-size:46px;
   font-weight:900;
   margin-top:10px;
   text-transform:uppercase;
+  position:relative;
+  overflow:hidden;
   text-shadow:
     0 0 10px #fff,
     0 0 30px #ffeb3b,
     0 0 60px #ff9800;
 }
 
-/* glow heading */
+/* shine */
+.big-name::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.9),
+    transparent
+  );
+  animation:shine 3s infinite;
+}
+
+@keyframes shine{
+  0%{left:-100%}
+  50%{left:100%}
+  100%{left:100%}
+}
+
+/* heading */
 .glow{
   font-size:36px;
   font-weight:900;
-  margin:20px 0 10px;
+  margin:18px 0 8px;
   line-height:1.2;
   text-shadow:
     0 0 5px #fff,
@@ -66,7 +92,7 @@ body{
 
 .om{
   font-size:20px;
-  margin-bottom:15px;
+  margin-bottom:10px;
   animation:pulse 2s infinite;
 }
 
@@ -76,31 +102,32 @@ body{
 }
 
 #countdown{
-  font-size:20px;
-  font-weight:700;
-  margin-bottom:18px;
+  font-size:22px;
+  font-weight:800;
+  margin:12px 0 18px;
 }
 
+/* image */
 .hero{
-  width:92%;
-  max-width:380px;
+  width:95%;
+  max-width:420px;
   margin:18px auto;
-  border-radius:26px;
+  border-radius:28px;
   box-shadow:
-    0 0 30px rgba(255,255,255,0.4),
-    0 0 80px rgba(0,0,0,0.9);
+    0 0 35px rgba(255,255,255,0.45),
+    0 0 90px rgba(0,0,0,0.9);
 }
 
 .msg{
   font-size:18px;
-  margin:20px 12px;
+  margin:18px 12px;
   line-height:1.6;
   font-weight:500;
 }
 
 input{
   width:90%;
-  max-width:320px;
+  max-width:330px;
   padding:15px;
   font-size:17px;
   border-radius:14px;
@@ -110,7 +137,7 @@ input{
 
 .btn{
   width:90%;
-  max-width:320px;
+  max-width:330px;
   margin-top:14px;
   padding:16px;
   font-size:19px;
@@ -122,7 +149,14 @@ input{
   color:#000;
 }
 
-/* Falling effects */
+/* footer note */
+.footer-note{
+  margin-top:28px;
+  font-size:15px;
+  opacity:0.85;
+}
+
+/* falling effects */
 .flower,.maha{
   position:fixed;
   top:-30px;
@@ -138,9 +172,9 @@ input{
 
 <body>
 
-<div class="container" id="capture">
+<div class="container">
 
-  <!-- NAME VERY BIG -->
+  <!-- BIG NAME -->
   <div class="big-name" id="fromName"></div>
 
   <div class="glow">
@@ -150,7 +184,7 @@ input{
 
   <div class="om">🕉️ Om Namah Shivay 🕉️</div>
 
-  <div id="countdown"></div>
+  <div id="countdown" class="glow"></div>
 
   <img class="hero"
    src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
@@ -167,20 +201,31 @@ input{
     WhatsApp par apna link banaye
   </button>
 
+  <div class="footer-note">
+    🔱 Apna naam likhiye aur is pavitra sandesh ko aage share kijiye 🔱
+  </div>
+
 </div>
 
 <script>
-// Name from link
-const p=new URLSearchParams(location.search);
-const n=p.get("name");
-if(n){
- document.getElementById("fromName").innerText=
- decodeURIComponent(n)+" ki taraf se";
-}else{
- document.getElementById("fromName").innerText="🙏 Shiv Bhakt 🙏";
-}
+// Typing name from link
+const p = new URLSearchParams(location.search);
+const fullName = p.get("name")
+ ? "🌸 " + decodeURIComponent(p.get("name")) + " ki taraf se 🌸"
+ : "🙏 Shiv Bhakt 🙏";
 
-// WhatsApp
+const el = document.getElementById("fromName");
+let i = 0;
+function typeName(){
+  if(i < fullName.length){
+    el.innerText += fullName.charAt(i);
+    i++;
+    setTimeout(typeName, 80);
+  }
+}
+typeName();
+
+// WhatsApp share
 function shareWA(){
  const nm=document.getElementById("nameInput").value.trim();
  if(!nm){alert("Apna naam likhen");return;}
@@ -189,10 +234,11 @@ function shareWA(){
  window.open("https://wa.me/?text="+encodeURIComponent(msg));
 }
 
-// Countdown
+// Countdown with seconds
 const target=new Date("2026-02-15T00:00:00").getTime();
 setInterval(()=>{
- const d=target-new Date().getTime();
+ const now=new Date().getTime();
+ const d=target-now;
  if(d<=0){
   countdown.innerText="🙏 Aaj Maha Shivratri hai 🙏";
   return;
@@ -200,10 +246,12 @@ setInterval(()=>{
  const days=Math.floor(d/86400000);
  const hrs=Math.floor((d%86400000)/3600000);
  const min=Math.floor((d%3600000)/60000);
- countdown.innerText=`⏳ ${days} din ${hrs} ghante ${min} minute baki`;
+ const sec=Math.floor((d%60000)/1000);
+ countdown.innerText=
+  `⏳ ${days} din ${hrs} ghante ${min} minute ${sec} second baki`;
 },1000);
 
-// Effects
+// Flower rain
 const flowers=["🌸","🌺","🌼","🌷"];
 setInterval(()=>{
  let f=document.createElement("div");
@@ -214,18 +262,19 @@ setInterval(()=>{
  f.style.animationDuration=(3+Math.random()*3)+"s";
  document.body.appendChild(f);
  setTimeout(()=>f.remove(),7000);
-},260);
+},280);
 
+// Har Har Mahadev rain (slow)
 setInterval(()=>{
  let m=document.createElement("div");
  m.className="maha";
  m.innerText="Har Har Mahadev";
  m.style.left=Math.random()*100+"vw";
  m.style.fontSize="15px";
- m.style.animationDuration=(4+Math.random()*4)+"s";
+ m.style.animationDuration=(5+Math.random()*4)+"s";
  document.body.appendChild(m);
- setTimeout(()=>m.remove(),9000);
-},650);
+ setTimeout(()=>m.remove(),10000);
+},1200);
 </script>
 
 </body>
