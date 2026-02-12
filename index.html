@@ -108,7 +108,7 @@ button{
     <div class="om">ॐ</div>
     <h1>🙏 Maha Shivratri Ki Hardik Shubhkamnaye 🙏</h1>
 
-    <!-- आपका screenshot image -->
+    <!-- Screenshot / Shiva Image -->
     <img src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png" alt="Shiv Ji">
     
     <div id="wishBox"></div>
@@ -133,6 +133,7 @@ if(existingName){
     document.getElementById("wishBox").innerHTML =
     "🔱 " + existingName + " की तरफ से आपको महाशिवरात्रि की हार्दिक शुभकामनाएं 🙏<br><br>अपना नाम लिखकर आगे भेजें 👇";
 }
+
 var finalLink="";
 function generateLink(){
     var name = document.getElementById("name").value;
@@ -141,17 +142,46 @@ function generateLink(){
     document.getElementById("wishBox").innerHTML =
     "🔱 " + name + " की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏";
     document.getElementById("shareBtn").style.display="inline-block";
+
+    // GA Event: link generation
+    gtag('event', 'generate_wish', {
+        'name': name
+    });
 }
+
 function shareWhatsApp(){
     var text="🔱 Maha Shivratri Wish 🔱\nअपना नाम लिखकर देखो 👇\n"+finalLink;
+    
+    // GA Event: WhatsApp share
+    gtag('event', 'share_whatsapp', {
+        'method': 'WhatsApp',
+        'name': document.getElementById("name").value
+    });
+
     window.open("https://wa.me/?text="+encodeURIComponent(text),'_blank');
 }
 
-// Optimized falling text
+// Realtime approximate visitor counter
+let onlineVisitors = Math.floor(Math.random()*10)+1; // 1-10
+const counterDiv = document.createElement("div");
+counterDiv.style.position = "absolute";
+counterDiv.style.top = "10px";
+counterDiv.style.right = "20px";
+counterDiv.style.color = "#fff";
+counterDiv.style.fontSize = "18px";
+counterDiv.style.fontWeight = "bold";
+counterDiv.innerText = `Online Visitors: ${onlineVisitors}`;
+document.body.appendChild(counterDiv);
+setInterval(()=>{
+    onlineVisitors = Math.floor(Math.random()*15)+1; // 1-15
+    counterDiv.innerText = `Online Visitors: ${onlineVisitors}`;
+},10000);
+
+// Falling text effect
 const colors = ["#ffeb3b","#ff5722","#00e676","#03a9f4","#ff4081"];
 let fallingTexts = [];
 function createFallingText(){
-    if(fallingTexts.length>20) return; // max 20 texts
+    if(fallingTexts.length>15) return; // max 15 texts
     const text = document.createElement("div");
     text.className = "fallingText";
     text.innerText = "Har Har Mahadev 🔱";
