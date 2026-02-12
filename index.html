@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -16,7 +17,7 @@ gtag('config', 'G-KSGFTG4F9W');
 
 <!-- WhatsApp Preview -->
 <meta property="og:title" content="🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏">
-<meta property="og:description" content="Mahadev aapke jeevan me shanti, shakti aur samriddhi banaye rakhe 🔱">
+<meta property="og:description" content="Apna naam likhiye aur apne doston ko Maha Shivratri ki shubhkamnaye bhejiye 🔱">
 <meta property="og:image" content="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
 <meta property="og:type" content="website">
 
@@ -30,27 +31,32 @@ body{
   color:white;
   text-align:center;
 }
+
 .container{
   max-width:420px;
   margin:auto;
   padding:15px;
 }
+
 #fromName{
-  font-size:26px;
+  font-size:24px;
   font-weight:800;
   margin-top:10px;
   text-shadow:0 0 15px #fff;
 }
+
 h1{
-  font-size:28px;
+  font-size:26px;
   margin:10px 0;
   text-shadow:0 0 15px #fff;
 }
+
 #timer{
-  font-size:18px;
+  font-size:17px;
   font-weight:600;
   margin:10px 0;
 }
+
 .shiv-img{
   width:100%;
   max-width:320px;
@@ -58,11 +64,13 @@ h1{
   box-shadow:0 0 25px rgba(255,255,255,0.6);
   margin:15px auto;
 }
+
 .msg{
   font-size:16px;
   line-height:1.5;
   margin-bottom:15px;
 }
+
 input{
   width:90%;
   padding:12px;
@@ -71,6 +79,7 @@ input{
   font-size:16px;
   text-align:center;
 }
+
 button{
   margin-top:12px;
   padding:12px 20px;
@@ -82,17 +91,18 @@ button{
   cursor:pointer;
 }
 
-/* CREDIT */
 .credit{
   margin-top:25px;
   font-size:13px;
-  opacity:0.9;
+  opacity:0.95;
 }
+
 .credit a{
   color:#fff;
   font-weight:600;
   text-decoration:none;
 }
+
 .credit a:hover{
   text-decoration:underline;
 }
@@ -103,9 +113,11 @@ button{
 
 <div class="container">
 
-  <div id="fromName">🌸 RAMPPRAKASH KI TARAF SE 🌸</div>
+  <div id="fromName">
+    Ramprakash ki taraf se Maha Shivaratri ki Hardik Shubhkamnaye
+  </div>
 
-  <h1>🙏 Maha Shivratri 🙏<br>Hardik Shubhkamnaye</h1>
+  <h1>🙏 Maha Shivratri 🙏</h1>
 
   <div>ॐ Om Namah Shivay ॐ</div>
 
@@ -115,7 +127,7 @@ button{
    src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
 
   <div class="msg">
-    Mahadev aapke jeevan me shanti, shakti aur samriddhi banaye rakhe 🙏<br>
+    Mahadev aapke jeevan me sukh, shanti aur samriddhi pradan kare 🙏<br>
     <b>Har Har Mahadev 🔱</b>
   </div>
 
@@ -125,11 +137,11 @@ button{
 
   <button onclick="share()">WhatsApp par apna link banaye</button>
 
-  <!-- CREDIT -->
   <div class="credit">
     Website Designed & Developed by<br>
-    <a href="https://www.instagram.com/rp_gupta_07" target="_blank">
-      📸 @rp_gupta_07
+    <a href="https://www.instagram.com/rp_gupta_07"
+       target="_blank" rel="noopener noreferrer">
+       📸 @rp_gupta_07
     </a>
   </div>
 
@@ -141,7 +153,7 @@ const params = new URLSearchParams(window.location.search);
 const userName = params.get("name");
 if(userName){
   document.getElementById("fromName").innerText =
-  "🌸 " + userName.toUpperCase() + " KI TARAF SE 🌸";
+  userName + " ki taraf se Maha Shivaratri ki Hardik Shubhkamnaye";
 }
 
 // TIMER WITH SECONDS
@@ -150,10 +162,12 @@ setInterval(()=>{
   const now = new Date().getTime();
   const d = shivDate - now;
   if(d < 0) return;
+
   const days = Math.floor(d/(1000*60*60*24));
   const hrs  = Math.floor((d%(1000*60*60*24))/(1000*60*60));
   const min  = Math.floor((d%(1000*60*60))/(1000*60));
   const sec  = Math.floor((d%(1000*60))/1000);
+
   document.getElementById("timer").innerText =
   `⏳ ${days} din ${hrs} ghante ${min} minute ${sec} second baki`;
 },1000);
@@ -162,13 +176,16 @@ setInterval(()=>{
 function share(){
   const n = document.getElementById("nameInput").value.trim();
   if(!n){ alert("Naam likhiye"); return; }
+
   const link = location.origin + location.pathname + "?name=" + encodeURIComponent(n);
+
   const msg =
 `🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏
 ${n} ki taraf se
 
 👇 Apna naam likhne ke liye link
 ${link}`;
+
   window.open("https://wa.me/?text=" + encodeURIComponent(msg));
 }
 </script>
