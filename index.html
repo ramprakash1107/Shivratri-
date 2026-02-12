@@ -4,42 +4,93 @@
 <meta charset="UTF-8">
 <title>Maha Shivratri Wishes 🔱</title>
 <style>
-body { 
-  background: #0f0f0f; 
-  color: white; 
-  font-family: Arial, sans-serif; 
-  text-align: center; 
-  padding-top: 30px;
+/* Full-screen animated gradient background */
+body {
+    margin:0;
+    padding:0;
+    font-family:'Arial', sans-serif;
+    overflow:hidden;
+    height:100vh;
+    width:100vw;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background: linear-gradient(270deg, #ff0055, #ffdd00, #00ff99, #0099ff, #ff00ff);
+    background-size: 1000% 1000%;
+    animation: gradientBG 20s ease infinite;
+    color:white;
+    text-align:center;
 }
-input, button {
-  padding: 10px;
-  margin: 10px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
+@keyframes gradientBG {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
-button.red { background: red; color: white; cursor: pointer; }
-button.green { background: green; color: white; cursor: pointer; }
-.shayari { font-size: 20px; margin-bottom: 20px; }
-.footer { margin-top: 20px; font-size: 18px; }
-#visitorList { margin-top: 20px; font-size: 18px; text-align:left; display:inline-block; }
-.timer { font-size:18px; margin-top:15px; }
-.flower { position:fixed; top:0; font-size:20px; pointer-events:none; animation-name:fall; }
+
+/* Container */
+.container {
+    max-width:600px;
+    padding:20px;
+    background: rgba(0,0,0,0.4);
+    border-radius:15px;
+}
+
+/* Text styles */
+h1 { font-size:28px; margin-bottom:10px; color:#fff200; text-shadow: 2px 2px 5px #000; }
+.shayari {
+    font-size:20px;
+    font-style:italic;
+    margin:20px 0;
+    line-height:1.5;
+    color:#ffea00;
+    text-shadow:1px 1px 3px #000;
+}
+input {
+    padding:10px;
+    width:70%;
+    font-size:16px;
+    border-radius:8px;
+    border:none;
+    margin-bottom:10px;
+}
+button {
+    padding:10px 15px;
+    margin:5px;
+    border-radius:8px;
+    border:none;
+    font-size:16px;
+    cursor:pointer;
+    font-weight:bold;
+}
+button.red { background:#d32f2f; color:white; }
+button.green { background:#388e3c; color:white; }
+#visitorCount { margin-top:15px; font-size:16px; font-weight:bold; }
+#visitorList { text-align:left; display:inline-block; margin-top:10px; font-size:16px; }
+.timer { font-size:18px; margin:15px 0; color:#00ffff; font-weight:bold; }
+.footer { margin-top:20px; font-size:18px; color:#ffa500; font-weight:bold; }
+
+/* Flower animation */
+.flower { position:fixed; top:-50px; font-size:20px; pointer-events:none; animation-name:fall; }
 @keyframes fall { from{top:-50px;} to{top:100vh;} }
 </style>
 </head>
 <body>
 
-<div class="shayari">
-बदलता तो हर जीव है, जो ना बदले वही शिव हैं.!
+<div class="container">
+<h1>महाशिवरात्रि की शुभकामनाएं 🔱</h1>
+
+<div class="shayari" id="shayariText">
+दुनिया की हर मोहब्बत मैंने मतलब से भरी पायी है<br>
+पवित्र प्यार की खुशबु सिर्फ मेरे शिवशक्ति में ही नजर आई है !
 </div>
 
-<div id="nameText">🔱 Ramprakash की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏</div>
+<div id="nameText">🔱 Ramprakash की तरफ से आपको शुभकामनाएं 🙏</div>
 
 <div class="timer" id="countdown"></div>
 
 <input type="text" id="nameInput" placeholder="अपना नाम लिखें">
-
+<br>
 <button class="red" onclick="setName()">Wish बनाएं</button>
 <button class="green" onclick="share()">WhatsApp पर शेयर करें</button>
 
@@ -50,90 +101,79 @@ button.green { background: green; color: white; cursor: pointer; }
 
 <!-- Shiv Bhajan Sound -->
 <audio autoplay loop>
-  <source src="shivbhajan.mp3" type="audio/mpeg">
+    <source src="shivbhajan.mp3" type="audio/mpeg">
 </audio>
 
-<script>
+</div>
 
+<script>
 /* ===== Timer 15 Feb 2026 ===== */
 var shivratri = new Date("February 15, 2026 00:00:00").getTime();
-var countdown = setInterval(function(){
+setInterval(function(){
     var now = new Date().getTime();
     var distance = shivratri - now;
-    if(distance < 0){
-        clearInterval(countdown);
-        document.getElementById("countdown").innerHTML = "🔱 Maha Shivratri Aa Gayi 🙏";
+    if(distance<0){
+        document.getElementById("countdown").innerHTML="🔱 Maha Shivratri Aa Gayi 🙏";
         return;
     }
-    var d = Math.floor(distance/(1000*60*60*24));
-    var h = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-    var m = Math.floor((distance%(1000*60*60))/(1000*60));
-    var s = Math.floor((distance%(1000*60))/1000);
-    document.getElementById("countdown").innerHTML =
-    d+" दिन "+h+" घंटे "+m+" मिनट "+s+" सेकंड बाकी";
+    var d=Math.floor(distance/(1000*60*60*24));
+    var h=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+    var m=Math.floor((distance%(1000*60*60))/(1000*60));
+    var s=Math.floor((distance%(1000*60))/1000);
+    document.getElementById("countdown").innerHTML=d+" दिन "+h+" घंटे "+m+" मिनट "+s+" सेकंड बाकी";
 },1000);
 
-/* ===== URL Auto Name ===== */
+/* ===== URL Name ===== */
 const params = new URLSearchParams(window.location.search);
 let urlName = params.get("name");
 const nameInput = document.getElementById("nameInput");
 const nameText = document.getElementById("nameText");
-let visitorCount = document.getElementById("visitorCount");
+let allVisitors = JSON.parse(localStorage.getItem("shivVisitors")||"[]");
 
-// Visitors array from localStorage
-let allVisitors = JSON.parse(localStorage.getItem("shivVisitors") || "[]");
-
-// Update visitor count
-visitorCount.innerHTML = "Visitors: "+allVisitors.length;
-
-// Show URL name if exists
+/* Show URL name if exists */
 if(urlName){
-    nameInput.value = urlName;
-    nameText.innerHTML = "🔱 "+urlName+" की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏";
+    nameInput.value=urlName;
+    nameText.innerHTML="🔱 "+urlName+" की तरफ से आपको शुभकामनाएं 🙏";
     saveVisitor(urlName);
 }
 
 /* ===== Set Name ===== */
 function setName(){
-    var name = nameInput.value.trim();
+    var name=nameInput.value.trim();
     if(name!=""){
-        nameText.innerHTML = "🔱 "+name+" की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏";
+        nameText.innerHTML="🔱 "+name+" की तरफ से आपको शुभकामनाएं 🙏";
         saveVisitor(name);
     }
 }
 
-/* ===== Save Visitor Name & Update List ===== */
+/* ===== Visitor Save & Update ===== */
 function saveVisitor(name){
     if(!allVisitors.includes(name)){
         allVisitors.push(name);
-        localStorage.setItem("shivVisitors", JSON.stringify(allVisitors));
+        localStorage.setItem("shivVisitors",JSON.stringify(allVisitors));
     }
     updateVisitorList();
 }
-
-/* ===== Update Visitor List & Count ===== */
 function updateVisitorList(){
-    let listHTML = "<h3>Website देखने वाले:</h3><ul>";
-    allVisitors.forEach(n => {
-        listHTML += "<li>🔱 "+n+"</li>";
+    let listHTML="<ul>";
+    allVisitors.forEach(n=>{
+        listHTML+="<li>🔱 "+n+"</li>";
     });
-    listHTML += "</ul>";
-    document.getElementById("visitorList").innerHTML = listHTML;
-    visitorCount.innerHTML = "Visitors: "+allVisitors.length;
+    listHTML+="</ul>";
+    document.getElementById("visitorList").innerHTML=listHTML;
+    document.getElementById("visitorCount").innerHTML="Visitors: "+allVisitors.length;
 }
-
-// Initial visitor list display
 updateVisitorList();
 
 /* ===== WhatsApp Share ===== */
 function share(){
-    var name = nameInput.value.trim() || urlName || "मित्र";
-    var link = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(name);
-    var text = name + " की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏\n" + link;
+    var name=nameInput.value.trim()||urlName||"मित्र";
+    var link=window.location.origin+window.location.pathname+"?name="+encodeURIComponent(name);
+    var text=name+" की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏\n"+link;
     window.open("https://wa.me/?text="+encodeURIComponent(text));
 }
 
-/* ===== Flower Rain ===== */
+/* ===== Flower Animation ===== */
 function createFlower(){
     var flower=document.createElement("div");
     flower.classList.add("flower");
@@ -144,5 +184,18 @@ function createFlower(){
     setTimeout(()=>{flower.remove();},8000);
 }
 setInterval(createFlower,400);
+</script>
+
+<!-- ===== Google Analytics ===== -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGFTG4F9W"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-KSGFTG4F9W');
+</script>
+
+</body>
+</html>
 
   
