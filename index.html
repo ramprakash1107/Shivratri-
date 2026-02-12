@@ -15,13 +15,7 @@
 </script>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: 'Arial', sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;}
 body{
     min-height:100vh;
     display:flex;
@@ -34,13 +28,11 @@ body{
     animation:bgAnimation 15s ease infinite;
     color:white;
 }
-
 @keyframes bgAnimation{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
     100%{background-position:0% 50%;}
 }
-
 .container{
     background: rgba(0,0,0,0.7);
     padding:30px;
@@ -51,31 +43,26 @@ body{
     position:relative;
     z-index:1;
 }
-
 .om{
     font-size:70px;
     color:gold;
     animation:glow 1.5s infinite alternate;
 }
-
 @keyframes glow{
     from{ text-shadow:0 0 15px red; }
     to{ text-shadow:0 0 40px yellow; }
 }
-
 h1{
     font-size:24px;
     margin:15px 0;
     color:orange;
 }
-
 img{
     width:250px;
     border-radius:12px;
     margin:20px 0;
     box-shadow:0 0 25px gold;
 }
-
 input{
     padding:12px;
     width:90%;
@@ -84,7 +71,6 @@ input{
     margin-top:15px;
     font-size:18px;
 }
-
 button{
     padding:12px 25px;
     margin-top:15px;
@@ -94,32 +80,10 @@ button{
     cursor:pointer;
     font-weight:bold;
 }
-
-.generate{
-    background:red;
-    color:white;
-}
-
-.share{
-    background:#25D366;
-    color:white;
-    display:none;
-}
-
-#wishBox{
-    margin-top:20px;
-    font-size:20px;
-    color:yellow;
-}
-
-.footer{
-    margin-top:20px;
-    font-size:16px;
-    color:#fff;
-    position:relative;
-}
-
-/* Har Har Mahadev text rain effect */
+.generate{background:red;color:white;}
+.share{background:#25D366;color:white;display:none;}
+#wishBox{margin-top:20px;font-size:20px;color:yellow;}
+.footer{margin-top:20px;font-size:16px;color:#fff;position:relative;}
 .fallingText{
     position:absolute;
     top:-50px;
@@ -130,26 +94,30 @@ button{
     z-index:0;
     user-select:none;
 }
+#timer{
+    font-size:22px;
+    margin-top:10px;
+    color:#00e676;
+    font-weight:bold;
+}
 </style>
 </head>
 <body>
 
 <div class="container">
     <div class="om">ॐ</div>
-
     <h1>🙏 Maha Shivratri Ki Hardik Shubhkamnaye 🙏</h1>
-
     <!-- काम करने वाली Shiv Ji image -->
-    <img src="https://i.postimg.cc/5tF2V5xD/shivji.png" alt="Shiv Ji">
-
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Lord_Shiva_1.jpg" alt="Shiv Ji">
+    
     <div id="wishBox"></div>
-
     <input type="text" id="name" placeholder="अपना नाम लिखें">
     <br>
     <button class="generate" onclick="generateLink()">Wish बनाएं</button>
     <br>
     <button class="share" id="shareBtn" onclick="shareWhatsApp()">WhatsApp पर शेयर करें</button>
-
+    
+    <div id="timer"></div>
     <div class="footer">Har Har Mahadev 🔱</div>
 </div>
 
@@ -159,34 +127,30 @@ function getNameFromURL(){
     const params = new URLSearchParams(window.location.search);
     return params.get("name");
 }
-
 var existingName = getNameFromURL();
 if(existingName){
     document.getElementById("wishBox").innerHTML =
     "🔱 " + existingName + " की तरफ से आपको महाशिवरात्रि की हार्दिक शुभकामनाएं 🙏<br><br>अपना नाम लिखकर आगे भेजें 👇";
 }
-
 var finalLink="";
 function generateLink(){
     var name = document.getElementById("name").value;
-    if(name==""){
-        alert("कृपया अपना नाम लिखें");
-        return;
-    }
+    if(name==""){alert("कृपया अपना नाम लिखें");return;}
     finalLink = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(name);
     document.getElementById("wishBox").innerHTML =
     "🔱 " + name + " की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏";
     document.getElementById("shareBtn").style.display="inline-block";
 }
-
 function shareWhatsApp(){
     var text="🔱 Maha Shivratri Wish 🔱\nअपना नाम लिखकर देखो 👇\n"+finalLink;
     window.open("https://wa.me/?text="+encodeURIComponent(text),'_blank');
 }
 
-// Falling text animation
+// Optimized falling text
 const colors = ["#ffeb3b","#ff5722","#00e676","#03a9f4","#ff4081"];
+let fallingTexts = [];
 function createFallingText(){
+    if(fallingTexts.length>20) return; // max 20 texts
     const text = document.createElement("div");
     text.className = "fallingText";
     text.innerText = "Har Har Mahadev 🔱";
@@ -194,9 +158,10 @@ function createFallingText(){
     text.style.color = colors[Math.floor(Math.random()*colors.length)];
     text.style.fontSize = (16 + Math.random()*24) + "px";
     document.body.appendChild(text);
+    fallingTexts.push(text);
 
     let topPos = -50;
-    const speed = 1 + Math.random()*3;
+    const speed = 1 + Math.random()*2;
     function fall(){
         topPos += speed;
         text.style.top = topPos + "px";
@@ -204,14 +169,31 @@ function createFallingText(){
             requestAnimationFrame(fall);
         } else {
             text.remove();
+            fallingTexts.shift();
         }
     }
     fall();
 }
+setInterval(createFallingText, 700);
 
-setInterval(createFallingText, 500); // हर 0.5 सेकंड में नया text
+// Countdown Timer to 15 Feb
+function countdown(){
+    const target = new Date(new Date().getFullYear(),1,15,0,0,0); // Feb 15
+    const now = new Date();
+    const diff = target - now;
+    if(diff<=0){
+        document.getElementById("timer").innerText="🎉 Maha Shivratri Mubarak! 🎉";
+        return;
+    }
+    const days = Math.floor(diff/1000/60/60/24);
+    const hours = Math.floor(diff/1000/60/60)%24;
+    const mins = Math.floor(diff/1000/60)%60;
+    const secs = Math.floor(diff/1000)%60;
+    document.getElementById("timer").innerText = `Countdown: ${days}d ${hours}h ${mins}m ${secs}s`;
+}
+setInterval(countdown,1000);
+countdown();
 
 </script>
-
 </body>
 </html>
