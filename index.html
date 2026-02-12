@@ -6,83 +6,136 @@
 <title>Maha Shivratri Wishes</title>
 
 <style>
-body{
+
+*{
     margin:0;
     padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     text-align:center;
-    font-family:Arial;
-    background:black;
     color:white;
+    background: linear-gradient(135deg, #000000, #1a0033, #330000);
+    background-size:400% 400%;
+    animation:bgAnimation 10s infinite alternate;
+}
+
+@keyframes bgAnimation{
+    0%{background-position:left;}
+    100%{background-position:right;}
+}
+
+.container{
+    background: rgba(0,0,0,0.7);
+    padding:25px;
+    border-radius:15px;
+    width:95%;
+    max-width:400px;
+    box-shadow:0 0 25px rgba(255,0,0,0.6);
 }
 
 .om{
-    font-size:60px;
+    font-size:55px;
     color:gold;
-    animation: glow 1.5s infinite alternate;
+    animation:glow 1.5s infinite alternate;
 }
 
 @keyframes glow{
-    from{ text-shadow:0 0 10px red;}
-    to{ text-shadow:0 0 25px yellow;}
+    from{ text-shadow:0 0 10px red; }
+    to{ text-shadow:0 0 25px yellow; }
 }
 
-h1{ color:orange; }
+h1{
+    font-size:20px;
+    margin:10px 0;
+    color:orange;
+}
 
 img{
     width:220px;
+    border-radius:12px;
     margin:15px 0;
-    border-radius:10px;
-    box-shadow:0 0 20px red;
+    box-shadow:0 0 20px orange;
 }
 
 input{
     padding:10px;
-    width:80%;
-    max-width:300px;
+    width:90%;
     border:none;
-    border-radius:5px;
+    border-radius:6px;
+    margin-top:10px;
+    font-size:16px;
 }
 
 button{
     padding:10px 20px;
-    margin-top:10px;
+    margin-top:12px;
     border:none;
-    border-radius:5px;
+    border-radius:6px;
+    font-size:15px;
     cursor:pointer;
 }
 
-.generate{ background:red; color:white; }
-.whatsapp{ background:#25D366; color:white; display:none; }
+.generate{
+    background:red;
+    color:white;
+}
+
+.share{
+    background:#25D366;
+    color:white;
+    display:none;
+}
 
 #wishBox{
-    margin-top:20px;
-    font-size:20px;
+    margin-top:15px;
+    font-size:18px;
     color:yellow;
+}
+
+.footer{
+    margin-top:15px;
+    font-size:14px;
+    color:#ccc;
 }
 
 </style>
 </head>
+
 <body>
+
+<div class="container">
 
 <div class="om">ॐ</div>
 
 <h1>🙏 Maha Shivratri Ki Hardik Shubhkamnaye 🙏</h1>
 
-<img src="https://i.imgur.com/4AiXzf8.jpeg">
-
-<br>
-
-<input type="text" id="name" placeholder="अपना नाम लिखें">
-<br>
-<button class="generate" onclick="generateLink()">Wish Generate करें</button>
-<br>
-<button class="whatsapp" id="shareBtn" onclick="shareWhatsApp()">WhatsApp पर शेयर करें</button>
+<img src="https://images.unsplash.com/photo-1608889175304-1a1d0a7f6207" alt="Shiv Ji">
 
 <div id="wishBox"></div>
 
+<input type="text" id="name" placeholder="अपना नाम लिखें">
+
+<br>
+
+<button class="generate" onclick="generateLink()">Wish बनाएं</button>
+
+<br>
+
+<button class="share" id="shareBtn" onclick="shareWhatsApp()">WhatsApp पर शेयर करें</button>
+
+<div class="footer">Har Har Mahadev 🔱</div>
+
+</div>
+
 <script>
 
-/* URL से नाम पढ़ना */
 function getNameFromURL(){
     const params = new URLSearchParams(window.location.search);
     return params.get("name");
@@ -95,8 +148,7 @@ if(existingName){
     "🔱 " + existingName + " की तरफ से आपको महाशिवरात्रि की हार्दिक शुभकामनाएं 🙏<br><br>अपना नाम लिखकर आगे भेजें 👇";
 }
 
-/* नया लिंक बनाना */
-var finalLink = "";
+var finalLink="";
 
 function generateLink(){
     var name = document.getElementById("name").value;
@@ -109,16 +161,14 @@ function generateLink(){
     finalLink = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(name);
 
     document.getElementById("wishBox").innerHTML =
-    "🔱 " + name + " की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏<br><br>इस लिंक को शेयर करें 👇<br>" + finalLink;
+    "🔱 " + name + " की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏";
 
-    document.getElementById("shareBtn").style.display = "inline-block";
+    document.getElementById("shareBtn").style.display="inline-block";
 }
 
-/* WhatsApp शेयर */
 function shareWhatsApp(){
-    var text = "🔱 Maha Shivratri Wish 🔱\nअपना नाम लिखकर देखो 👇\n" + finalLink;
-    var url = "https://wa.me/?text=" + encodeURIComponent(text);
-    window.open(url, '_blank');
+    var text="🔱 Maha Shivratri Wish 🔱\nअपना नाम लिखकर देखो 👇\n"+finalLink;
+    window.open("https://wa.me/?text="+encodeURIComponent(text),'_blank');
 }
 
 </script>
