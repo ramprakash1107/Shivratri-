@@ -15,77 +15,116 @@ gtag('config', 'G-KSGFTG4F9W');
 </script>
 
 <style>
+*{box-sizing:border-box}
+
 body{
   margin:0;
-  font-family:Arial, sans-serif;
+  font-family:'Poppins',Arial,sans-serif;
   text-align:center;
-  background: linear-gradient(135deg,#ff9800,#e91e63,#9c27b0);
   color:white;
-  overflow:hidden;
+  overflow-x:hidden;
+  background:linear-gradient(-45deg,#ff6a00,#ee0979,#8e2de2,#4a00e0);
+  background-size:400% 400%;
+  animation:bgmove 10s ease infinite;
+}
+
+@keyframes bgmove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
 .container{
-  padding:20px;
+  padding:20px 15px 80px;
+  position:relative;
+  z-index:2;
+}
+
+.from{
+  font-size:22px;
+  margin-top:10px;
+  opacity:0.95;
 }
 
 .glow{
-  font-size:34px;
+  font-size:42px;
+  font-weight:900;
+  margin:15px 0;
+  line-height:1.2;
   text-shadow:
-   0 0 5px #fff,
-   0 0 10px #ffeb3b,
-   0 0 20px #ff9800,
-   0 0 40px #ff5722;
+    0 0 5px #fff,
+    0 0 15px #ffeb3b,
+    0 0 30px #ff9800,
+    0 0 60px #ff5722;
 }
 
-h2{
-  margin-top:10px;
-  font-size:22px;
+.om{
+  font-size:20px;
+  margin-bottom:15px;
+  animation:pulse 2s infinite;
 }
 
-input{
-  padding:12px;
-  width:80%;
-  max-width:300px;
-  border:none;
-  border-radius:8px;
-  font-size:16px;
-}
-
-button{
-  margin:10px;
-  padding:12px 20px;
-  font-size:16px;
-  border:none;
-  border-radius:8px;
-  background:#00e676;
-  color:#000;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.shiv-img{
-  width:260px;
-  max-width:90%;
-  margin-top:20px;
-  border-radius:15px;
-  box-shadow:0 0 25px rgba(0,0,0,0.6);
+@keyframes pulse{
+  0%,100%{opacity:1}
+  50%{opacity:0.6}
 }
 
 #countdown{
   font-size:20px;
-  margin:15px;
-  font-weight:bold;
+  font-weight:700;
+  margin-bottom:20px;
 }
 
-/* Falling animations */
+.hero{
+  width:90%;
+  max-width:360px;
+  margin:20px auto;
+  border-radius:25px;
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.4),
+    0 0 60px rgba(0,0,0,0.8);
+}
+
+.msg{
+  font-size:18px;
+  margin:20px 10px;
+  line-height:1.6;
+}
+
+input{
+  width:90%;
+  max-width:320px;
+  padding:14px;
+  font-size:17px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+}
+
+.btn{
+  width:90%;
+  max-width:320px;
+  margin-top:12px;
+  padding:15px;
+  font-size:18px;
+  border:none;
+  border-radius:14px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.whatsapp{background:#25D366;color:#000}
+.insta{background:#ffeb3b;color:#000}
+
 .flower,.maha{
   position:fixed;
-  top:-20px;
-  animation: fall linear infinite;
+  top:-30px;
+  animation:fall linear infinite;
+  z-index:1;
 }
 
 @keyframes fall{
-  to{ transform:translateY(110vh); }
+  to{transform:translateY(120vh)}
 }
 </style>
 </head>
@@ -93,100 +132,95 @@ button{
 <body>
 
 <div class="container" id="capture">
-  <h2 id="fromName"></h2>
+  <div class="from" id="fromName"></div>
 
-  <h1 class="glow">🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏</h1>
+  <div class="glow">🙏 Maha Shivratri 🙏<br>Hardik Shubhkamnaye</div>
+
+  <div class="om">🕉️ Om Namah Shivay 🕉️</div>
 
   <div id="countdown"></div>
 
-  <img class="shiv-img"
+  <img class="hero"
    src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
 
-  <p>Apna naam likhen aur aage share kare</p>
+  <div class="msg">
+    Mahadev aapke jeevan se sab dukh, rog aur
+    kasht door kare aur sukh-samriddhi de 🙏
+  </div>
 
-  <input type="text" id="nameInput" placeholder="Yahan apna naam likhen">
+  <input id="nameInput" placeholder="Yahan apna naam likhen">
   <br>
-  <button onclick="generateLink()">WhatsApp par Share</button>
-  <button onclick="downloadImage()">Instagram Story Image</button>
+  <button class="btn whatsapp" onclick="shareWA()">WhatsApp par Share kare</button>
+  <button class="btn insta" onclick="downloadImage()">Instagram Story Image</button>
 </div>
 
 <script>
-// Naam from link
-const params = new URLSearchParams(window.location.search);
-const nm = params.get("name");
-if(nm){
-  document.getElementById("fromName").innerText =
-    decodeURIComponent(nm) + " ki taraf se";
+// Name from link
+const p=new URLSearchParams(location.search);
+const n=p.get("name");
+if(n){
+ document.getElementById("fromName").innerText=
+ decodeURIComponent(n)+" ki taraf se";
 }
 
-// WhatsApp link generator
-function generateLink(){
-  const n = document.getElementById("nameInput").value.trim();
-  if(!n){ alert("Apna naam likhen"); return; }
-
-  const link =
-    location.origin + location.pathname + "?name=" + encodeURIComponent(n);
-
-  const msg =
-    "🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏\n\n" +
-    n + " ki taraf se\n\n" + link;
-
-  window.open("https://wa.me/?text="+encodeURIComponent(msg));
+// WhatsApp
+function shareWA(){
+ const nm=document.getElementById("nameInput").value.trim();
+ if(!nm){alert("Apna naam likhen");return;}
+ const link=location.origin+location.pathname+"?name="+encodeURIComponent(nm);
+ const msg="🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏\n\n"+nm+" ki taraf se\n\n"+link;
+ window.open("https://wa.me/?text="+encodeURIComponent(msg));
 }
 
-// Countdown (15 Feb)
-const target = new Date("2026-02-15T00:00:00").getTime();
+// Countdown
+const target=new Date("2026-02-15T00:00:00").getTime();
 setInterval(()=>{
-  const now = new Date().getTime();
-  const d = target - now;
-  if(d<0){
-    document.getElementById("countdown").innerText="🙏 Shivratri Mubarak 🙏";
-    return;
-  }
-  const days=Math.floor(d/(1000*60*60*24));
-  const hrs=Math.floor((d%(1000*60*60*24))/(1000*60*60));
-  const min=Math.floor((d%(1000*60*60))/(1000*60));
-  document.getElementById("countdown").innerText=
-    `⏳ ${days} din ${hrs} ghante ${min} minute baki`;
+ const d=target-new Date().getTime();
+ if(d<=0){
+  countdown.innerText="🙏 Aaj Maha Shivratri hai 🙏";
+  return;
+ }
+ const days=Math.floor(d/86400000);
+ const hrs=Math.floor((d%86400000)/3600000);
+ const min=Math.floor((d%3600000)/60000);
+ countdown.innerText=`⏳ ${days} din ${hrs} ghante ${min} minute baki`;
 },1000);
 
-// Flower rain
+// Effects
 const flowers=["🌸","🌺","🌼","🌷"];
 setInterval(()=>{
-  const f=document.createElement("div");
-  f.className="flower";
-  f.innerText=flowers[Math.floor(Math.random()*flowers.length)];
-  f.style.left=Math.random()*100+"vw";
-  f.style.fontSize="24px";
-  f.style.animationDuration=(3+Math.random()*3)+"s";
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),6000);
-},300);
+ let f=document.createElement("div");
+ f.className="flower";
+ f.innerText=flowers[Math.floor(Math.random()*flowers.length)];
+ f.style.left=Math.random()*100+"vw";
+ f.style.fontSize="26px";
+ f.style.animationDuration=(3+Math.random()*3)+"s";
+ document.body.appendChild(f);
+ setTimeout(()=>f.remove(),7000);
+},250);
 
-// Har Har Mahadev rain
 setInterval(()=>{
-  const m=document.createElement("div");
-  m.className="maha";
-  m.innerText="Har Har Mahadev";
-  m.style.left=Math.random()*100+"vw";
-  m.style.fontSize="14px";
-  m.style.animationDuration=(4+Math.random()*4)+"s";
-  document.body.appendChild(m);
-  setTimeout(()=>m.remove(),8000);
-},700);
+ let m=document.createElement("div");
+ m.className="maha";
+ m.innerText="Har Har Mahadev";
+ m.style.left=Math.random()*100+"vw";
+ m.style.fontSize="15px";
+ m.style.animationDuration=(4+Math.random()*4)+"s";
+ document.body.appendChild(m);
+ setTimeout(()=>m.remove(),9000);
+},600);
 
-// Instagram Image download
+// Image download
 function downloadImage(){
-  html2canvas(document.getElementById("capture")).then(canvas=>{
-    const link=document.createElement("a");
-    link.download="Maha-Shivratri-Wish.png";
-    link.href=canvas.toDataURL();
-    link.click();
-  });
+ html2canvas(capture).then(c=>{
+  let a=document.createElement("a");
+  a.download="Maha-Shivratri-Wish.png";
+  a.href=c.toDataURL();
+  a.click();
+ });
 }
 </script>
 
-<!-- html2canvas -->
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 </body>
