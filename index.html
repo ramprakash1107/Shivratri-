@@ -1,1 +1,190 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>महा शिवरात्रि शुभकामनाएं</title>
 
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGFTG4F9W"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-KSGFTG4F9W');
+</script>
+
+<!-- WhatsApp Preview -->
+<meta property="og:title" content="🙏 महा शिवरात्रि की हार्दिक शुभकामनाएं 🙏">
+<meta property="og:description" content="अपना नाम लिखें और शिवरात्रि की शुभकामनाएं शेयर करें 🔱">
+<meta property="og:image" content="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ff0080,#7928ca,#ff8c00);
+  color:white;
+  text-align:center;
+}
+
+.container{
+  max-width:420px;
+  margin:auto;
+  padding:15px;
+}
+
+/* NAME BIG */
+#fromName{
+  font-size:26px;
+  font-weight:800;
+  margin-top:10px;
+  line-height:1.3;
+  text-shadow:0 0 15px #fff;
+}
+
+/* BELOW TEXT SMALL */
+#belowText{
+  font-size:16px;
+  margin-top:6px;
+  opacity:0.95;
+}
+
+h1{
+  font-size:24px;
+  margin:10px 0;
+}
+
+#timer{
+  font-size:16px;
+  font-weight:600;
+  margin:8px 0;
+}
+
+.shiv-img{
+  width:100%;
+  max-width:300px;
+  border-radius:22px;
+  box-shadow:0 0 25px rgba(255,255,255,0.6);
+  margin:15px auto;
+}
+
+.msg{
+  font-size:15px;
+  line-height:1.5;
+  margin-bottom:15px;
+}
+
+input{
+  width:90%;
+  padding:12px;
+  border-radius:25px;
+  border:none;
+  font-size:16px;
+  text-align:center;
+}
+
+button{
+  margin-top:12px;
+  padding:12px 20px;
+  font-size:16px;
+  font-weight:600;
+  border:none;
+  border-radius:25px;
+  background:#00e676;
+}
+
+.credit{
+  margin-top:22px;
+  font-size:13px;
+}
+
+.credit a{
+  color:#fff;
+  font-weight:600;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div id="fromName">रामप्रकाश</div>
+  <div id="belowText">की तरफ से महा शिवरात्रि की हार्दिक शुभकामनाएं</div>
+
+  <h1>🙏 महा शिवरात्रि 🙏</h1>
+  <div>ॐ नमः शिवाय ॐ</div>
+
+  <div id="timer">लोड हो रहा है...</div>
+
+  <img class="shiv-img"
+   src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
+
+  <div class="msg">
+    महादेव आपके जीवन में सुख, शांति और समृद्धि प्रदान करें 🙏<br>
+    <b>हर हर महादेव 🔱</b>
+  </div>
+
+  <input id="nameInput" placeholder="यहाँ अपना नाम लिखें">
+
+  <br>
+
+  <button onclick="share()">WhatsApp पर अपना लिंक बनाएं</button>
+
+  <div class="credit">
+    Website Designed & Developed by<br>
+    <a href="instagram://user?username=rp_gupta_07">
+      📸 @rp_gupta_07
+    </a>
+  </div>
+
+</div>
+
+<script>
+// URL NAME
+const p = new URLSearchParams(location.search);
+const nm = p.get("name");
+if(nm){
+  document.getElementById("fromName").innerText = nm;
+}
+
+// TIMER WITH SECONDS
+const shivDate = new Date("Feb 15, 2026 00:00:00").getTime();
+setInterval(()=>{
+  const now = new Date().getTime();
+  const d = shivDate - now;
+  if(d < 0) return;
+
+  const day = Math.floor(d/(1000*60*60*24));
+  const hr  = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  const min = Math.floor((d%(1000*60*60))/(1000*60));
+  const sec = Math.floor((d%(1000*60))/1000);
+
+  document.getElementById("timer").innerText =
+  `⏳ ${day} दिन ${hr} घंटे ${min} मिनट ${sec} सेकंड शेष`;
+},1000);
+
+// SHARE
+function share(){
+  const n = document.getElementById("nameInput").value.trim();
+  if(!n){ alert("कृपया नाम लिखें"); return; }
+
+  const link = location.origin + location.pathname + "?name=" + encodeURIComponent(n);
+
+  const msg =
+`🙏 महा शिवरात्रि की हार्दिक शुभकामनाएं 🙏
+${n} की तरफ से
+
+👇 अपना नाम लिखें
+${link}`;
+
+  window.open("https://wa.me/?text=" + encodeURIComponent(msg));
+}
+</script>
+
+</body>
+</html>
