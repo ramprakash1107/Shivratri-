@@ -6,7 +6,7 @@
 
 <title>Maha Shivratri Wishes</title>
 
-<!-- Google Analytics GA4 -->
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGFTG4F9W"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -15,117 +15,254 @@
   gtag('config', 'G-KSGFTG4F9W');
 </script>
 
+<!-- Hindi Font -->
+<link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
 body{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg,#ff00cc,#3333ff);
+  font-family:'Hind', sans-serif;
+  background:linear-gradient(135deg,#ff0080,#7928ca,#ff8c00);
   color:#fff;
   text-align:center;
+  min-height:100vh;
+  overflow-x:hidden;
 }
+
+/* Flowers */
+.flower{
+  position:fixed;
+  top:-40px;
+  font-size:20px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+/* Floating text */
+.floating{
+  position:fixed;
+  font-size:12px;
+  color:rgba(255,255,255,0.4);
+  animation:float 14s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-10vh);}
+}
+
+/* Top Insta */
+.top-insta{
+  position:fixed;
+  top:12px;
+  right:14px;
+  font-size:14px;
+}
+.top-insta a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* Card */
 .container{
-  max-width:420px;
-  margin:auto;
+  max-width:360px;
+  margin:70px auto 130px;
   padding:20px;
+  border-radius:22px;
+  background:rgba(255,255,255,0.15);
+  box-shadow:0 0 25px rgba(0,0,0,0.4);
 }
+
+#fromName{
+  font-size:30px;
+  font-weight:700;
+  text-shadow:0 0 15px #fff;
+}
+
+.sub{
+  font-size:17px;
+  margin:8px 0 12px;
+}
+
 h1{
   font-size:28px;
   margin:10px 0;
+  text-shadow:0 0 14px gold;
 }
-h2{
-  font-size:20px;
-  font-weight:normal;
+
+#timer{
+  font-size:15px;
+  margin:12px 0 15px;
 }
-.shiv-img{
+
+img{
   width:100%;
+  max-height:380px;
+  object-fit:cover;
   border-radius:20px;
-  margin:20px 0;
+  box-shadow:0 0 18px rgba(0,0,0,0.45);
 }
+
+.msg{
+  font-size:15px;
+  margin:15px 0;
+}
+
 input{
   width:90%;
-  padding:12px;
-  font-size:16px;
-  border-radius:25px;
+  padding:11px;
+  border-radius:22px;
   border:none;
   outline:none;
-  margin-top:10px;
+  margin-bottom:12px;
+  font-size:15px;
 }
+
 button{
-  margin-top:12px;
-  padding:12px 25px;
-  font-size:16px;
   border:none;
-  border-radius:25px;
-  background:#00ffcc;
+  padding:11px 20px;
+  border-radius:22px;
+  font-size:16px;
   cursor:pointer;
 }
-.footer{
-  margin-top:20px;
-  font-size:14px;
+
+.whatsapp{
+  background:#25D366;
+  color:#fff;
+  margin-bottom:10px;
 }
-a{
-  color:#00ffcc;
+
+/* Bottom bar */
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#000;
+  padding:10px;
+  font-size:15px;
+}
+.bottom a{
+  color:#ff4ecd;
   text-decoration:none;
-  font-weight:bold;
+  font-weight:600;
 }
 </style>
 </head>
 
 <body>
+
+<!-- Top Instagram (INTENT LINK) -->
+<div class="top-insta">
+  <a href="intent://instagram.com/_u/rp_gupta_07#Intent;package=com.instagram.android;scheme=https;end;"
+     onclick="fallbackInsta(event)">
+    @rp_gupta_07
+  </a>
+</div>
+
 <div class="container">
 
-  <h1>Ramprakash</h1>
-  <h2>की तरफ से<br>महा शिवरात्रि की हार्दिक शुभकामनाएं 🙏</h2>
+  <div id="fromName">रामप्रकाश</div>
+  <div class="sub">की तरफ से महा शिवरात्रि की हार्दिक शुभकामनाएं</div>
 
-  <p>ॐ नमः शिवाय</p>
+  <h1>🙏 महा शिवरात्रि 🙏</h1>
+  <div>ॐ नमः शिवाय</div>
 
-  <img class="shiv-img"
-  src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png"
-  alt="Lord Shiva">
+  <div id="timer"></div>
 
-  <p>महादेव आपके जीवन में सुख, शांति और समृद्धि प्रदान करें 🙏<br>
-  हर हर महादेव 🔱</p>
+  <img src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
+
+  <div class="msg">
+    महादेव आपके जीवन में सुख, शांति और समृद्धि प्रदान करें 🙏<br>
+    हर हर महादेव 🔱
+  </div>
 
   <input type="text" id="nameInput" placeholder="यहाँ अपना नाम लिखें">
 
-  <br>
-  <button onclick="generateLink()">Link Generate करें</button>
-
-  <p id="linkBox"></p>
-
-  <div class="footer">
-    Website Designed & Developed by  
-    <a href="https://www.instagram.com/rp_gupta_07" target="_blank">
-      @rp_gupta_07
-    </a>
-  </div>
+  <button class="whatsapp" onclick="shareWhatsApp()">
+    WhatsApp पर सीधे शेयर करें
+  </button>
 
 </div>
 
+<!-- Bottom credit -->
+<div class="bottom">
+  Website Designed & Developed by
+  <a href="intent://instagram.com/_u/rp_gupta_07#Intent;package=com.instagram.android;scheme=https;end;"
+     onclick="fallbackInsta(event)">
+    @rp_gupta_07
+  </a>
+</div>
+
 <script>
-function generateLink(){
-  const name = document.getElementById("nameInput").value.trim();
-  if(name===""){
-    alert("कृपया नाम लिखें");
-    return;
-  }
-  const url = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(name);
-
-  document.getElementById("linkBox").innerHTML =
-  `🙏 ${name} की तरफ से महा शिवरात्रि की हार्दिक शुभकामनाएं 🙏<br>
-   <a href="${url}" target="_blank">${url}</a>`;
-
-  gtag('event','generate_wish',{
-    event_category:'engagement',
-    event_label:name
-  });
+// Instagram fallback
+function fallbackInsta(e){
+  setTimeout(()=>{
+    window.location.href="https://www.instagram.com/rp_gupta_07/";
+  },600);
 }
 
-// URL से नाम दिखाना
+// URL Name
 const params = new URLSearchParams(window.location.search);
-const userName = params.get("name");
-if(userName){
-  document.querySelector("h1").innerText = userName;
+const name = params.get("name");
+if(name){
+  document.getElementById("fromName").innerText = decodeURIComponent(name);
+}
+
+// Timer
+const target = new Date("2026-02-15T00:00:00").getTime();
+setInterval(()=>{
+  const now = new Date().getTime();
+  const d = target - now;
+  if(d < 0) return;
+  const days = Math.floor(d/(1000*60*60*24));
+  const hrs = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  const min = Math.floor((d%(1000*60*60))/(1000*60));
+  const sec = Math.floor((d%(1000*60))/1000);
+  document.getElementById("timer").innerText =
+   `⏳ ${days} दिन • ${hrs} घंटे • ${min} मिनट • ${sec} सेकंड`;
+},1000);
+
+// WhatsApp share
+function shareWhatsApp(){
+  const n=document.getElementById("nameInput").value.trim();
+  if(!n){
+    alert("कृपया अपना नाम लिखें");
+    return;
+  }
+  const link=window.location.origin+window.location.pathname+"?name="+encodeURIComponent(n);
+  const msg=`🙏 महा शिवरात्रि की हार्दिक शुभकामनाएं 🙏
+
+${n} की तरफ से
+
+${link}`;
+  window.open("https://wa.me/?text="+encodeURIComponent(msg));
+  gtag('event','whatsapp_share',{event_label:n});
+}
+
+// Flowers
+for(let i=0;i<15;i++){
+  const f=document.createElement("div");
+  f.className="flower";
+  f.innerText="🌸";
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=5+Math.random()*5+"s";
+  document.body.appendChild(f);
+}
+
+// Floating text
+for(let i=0;i<10;i++){
+  const t=document.createElement("div");
+  t.className="floating";
+  t.innerText="हर हर महादेव";
+  t.style.left=Math.random()*100+"vw";
+  t.style.animationDuration=10+Math.random()*10+"s";
+  document.body.appendChild(t);
 }
 </script>
 
