@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maha Shivratri Wish</title>
+<title>Maha Shivratri 2026 Wish</title>
 
 <style>
 body{
@@ -14,7 +15,7 @@ body{
     text-align:center;
 }
 
-/* Card */
+/* Main Card */
 .container{
     width:92%;
     max-width:430px;
@@ -25,7 +26,7 @@ body{
     box-shadow:0 0 50px gold;
 }
 
-/* Om */
+/* Om Glow */
 .om{
     font-size:60px;
     color:gold;
@@ -139,25 +140,22 @@ button{
 
 </div>
 
-<!-- Damru Sound -->
-<audio id="music" autoplay loop>
-<source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" type="audio/mpeg">
-</audio>
-
 <script>
 
-/* ===== Auto Year Timer ===== */
-var now = new Date();
-var year = now.getFullYear();
-var shivratri = new Date("March 15, " + year + " 00:00:00");
+/* ===== Exact Timer 15 February 2026 ===== */
+var shivratri = new Date("February 15, 2026 00:00:00").getTime();
 
-if(now > shivratri){
-    shivratri = new Date("March 15, " + (year+1) + " 00:00:00");
-}
+var countdown = setInterval(function(){
 
-setInterval(function(){
     var now = new Date().getTime();
     var distance = shivratri - now;
+
+    if(distance < 0){
+        clearInterval(countdown);
+        document.getElementById("countdown").innerHTML =
+        "🔱 Maha Shivratri Aa Gayi 🙏";
+        return;
+    }
 
     var d = Math.floor(distance/(1000*60*60*24));
     var h = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
@@ -166,7 +164,9 @@ setInterval(function(){
 
     document.getElementById("countdown").innerHTML =
     d+" दिन "+h+" घंटे "+m+" मिनट "+s+" सेकंड बाकी";
+
 },1000);
+
 
 /* ===== URL Auto Name ===== */
 const params = new URLSearchParams(window.location.search);
@@ -189,7 +189,7 @@ function setName(){
     }
 }
 
-/* ===== Share ===== */
+/* ===== Share with Auto Link ===== */
 function share(){
     var name = document.getElementById("nameInput").value || urlName || "मित्र";
     var link = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(name);
