@@ -18,6 +18,7 @@ gtag('config', 'G-KSGFTG4F9W');
 <meta property="og:title" content="🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏">
 <meta property="og:description" content="Mahadev aapke jeevan me shanti, shakti aur samriddhi banaye rakhe 🔱">
 <meta property="og:image" content="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
+<meta property="og:type" content="website">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
@@ -37,15 +38,18 @@ body{
 #fromName{
   font-size:26px;
   font-weight:800;
+  margin-top:10px;
   text-shadow:0 0 15px #fff;
 }
 h1{
   font-size:28px;
+  margin:10px 0;
   text-shadow:0 0 15px #fff;
 }
 #timer{
   font-size:18px;
   font-weight:600;
+  margin:10px 0;
 }
 .shiv-img{
   width:100%;
@@ -57,6 +61,7 @@ h1{
 .msg{
   font-size:16px;
   line-height:1.5;
+  margin-bottom:15px;
 }
 input{
   width:90%;
@@ -67,19 +72,34 @@ input{
   text-align:center;
 }
 button{
-  margin:8px;
+  margin-top:12px;
   padding:12px 20px;
-  font-size:15px;
+  font-size:16px;
   font-weight:600;
   border:none;
   border-radius:25px;
   background:#00e676;
   cursor:pointer;
 }
+
+/* CREDIT */
+.credit{
+  margin-top:25px;
+  font-size:13px;
+  opacity:0.9;
+}
+.credit a{
+  color:#fff;
+  font-weight:600;
+  text-decoration:none;
+}
+.credit a:hover{
+  text-decoration:underline;
+}
 </style>
 </head>
 
-<body onclick="playBhajan()">
+<body>
 
 <div class="container">
 
@@ -104,73 +124,52 @@ button{
   <br>
 
   <button onclick="share()">WhatsApp par apna link banaye</button>
-  <br>
-  <button onclick="nextBhajan()">🔁 Next Bhajan</button>
+
+  <!-- CREDIT -->
+  <div class="credit">
+    Website Designed & Developed by<br>
+    <a href="https://www.instagram.com/rp_gupta_07" target="_blank">
+      📸 @rp_gupta_07
+    </a>
+  </div>
 
 </div>
 
-<!-- 🔊 SHIV BHAJAN PLAYLIST -->
-<audio id="bhajan" loop></audio>
-
 <script>
-// NAME
+// NAME FROM URL
 const params = new URLSearchParams(window.location.search);
 const userName = params.get("name");
 if(userName){
- document.getElementById("fromName").innerText =
- "🌸 " + userName.toUpperCase() + " KI TARAF SE 🌸";
+  document.getElementById("fromName").innerText =
+  "🌸 " + userName.toUpperCase() + " KI TARAF SE 🌸";
 }
 
-// TIMER
+// TIMER WITH SECONDS
 const shivDate = new Date("Feb 15, 2026 00:00:00").getTime();
 setInterval(()=>{
- const now = new Date().getTime();
- const d = shivDate - now;
- if(d<0) return;
- const days = Math.floor(d/(1000*60*60*24));
- const hrs  = Math.floor((d%(1000*60*60*24))/(1000*60*60));
- const min  = Math.floor((d%(1000*60*60))/(1000*60));
- const sec  = Math.floor((d%(1000*60))/1000);
- document.getElementById("timer").innerText =
- `⏳ ${days} din ${hrs} ghante ${min} minute ${sec} second baki`;
+  const now = new Date().getTime();
+  const d = shivDate - now;
+  if(d < 0) return;
+  const days = Math.floor(d/(1000*60*60*24));
+  const hrs  = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  const min  = Math.floor((d%(1000*60*60))/(1000*60));
+  const sec  = Math.floor((d%(1000*60))/1000);
+  document.getElementById("timer").innerText =
+  `⏳ ${days} din ${hrs} ghante ${min} minute ${sec} second baki`;
 },1000);
 
 // WHATSAPP SHARE
 function share(){
- const n=document.getElementById("nameInput").value.trim();
- if(!n){alert("Naam likhiye");return;}
- const link=location.origin+location.pathname+"?name="+encodeURIComponent(n);
- const msg=`🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏
+  const n = document.getElementById("nameInput").value.trim();
+  if(!n){ alert("Naam likhiye"); return; }
+  const link = location.origin + location.pathname + "?name=" + encodeURIComponent(n);
+  const msg =
+`🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏
 ${n} ki taraf se
 
 👇 Apna naam likhne ke liye link
 ${link}`;
- window.open("https://wa.me/?text="+encodeURIComponent(msg));
-}
-
-// 🔊 BHAJAN LIST
-const bhajans=[
- "https://cdn.pixabay.com/audio/2022/03/15/audio_0c2a2d07e6.mp3",
- "https://cdn.pixabay.com/audio/2022/10/18/audio_5f09b7b74c.mp3",
- "https://cdn.pixabay.com/audio/2022/08/30/audio_31d7c6b5bb.mp3"
-];
-
-let index=0;
-let started=false;
-const audio=document.getElementById("bhajan");
-
-function playBhajan(){
- if(!started){
-   audio.src=bhajans[index];
-   audio.play();
-   started=true;
- }
-}
-
-function nextBhajan(){
- index=(index+1)%bhajans.length;
- audio.src=bhajans[index];
- audio.play();
+  window.open("https://wa.me/?text=" + encodeURIComponent(msg));
 }
 </script>
 
