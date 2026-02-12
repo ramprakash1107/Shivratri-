@@ -35,27 +35,33 @@ body{
 }
 
 .container{
-  padding:20px 15px 80px;
+  padding:20px 15px 70px;
   position:relative;
   z-index:2;
 }
 
-.from{
-  font-size:22px;
+/* BIG NAME */
+.big-name{
+  font-size:44px;
+  font-weight:900;
   margin-top:10px;
-  opacity:0.95;
+  text-transform:uppercase;
+  text-shadow:
+    0 0 10px #fff,
+    0 0 30px #ffeb3b,
+    0 0 60px #ff9800;
 }
 
+/* glow heading */
 .glow{
-  font-size:42px;
+  font-size:36px;
   font-weight:900;
-  margin:15px 0;
+  margin:20px 0 10px;
   line-height:1.2;
   text-shadow:
     0 0 5px #fff,
     0 0 15px #ffeb3b,
-    0 0 30px #ff9800,
-    0 0 60px #ff5722;
+    0 0 35px #ff5722;
 }
 
 .om{
@@ -72,31 +78,32 @@ body{
 #countdown{
   font-size:20px;
   font-weight:700;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
 .hero{
-  width:90%;
-  max-width:360px;
-  margin:20px auto;
-  border-radius:25px;
+  width:92%;
+  max-width:380px;
+  margin:18px auto;
+  border-radius:26px;
   box-shadow:
-    0 0 20px rgba(255,255,255,0.4),
-    0 0 60px rgba(0,0,0,0.8);
+    0 0 30px rgba(255,255,255,0.4),
+    0 0 80px rgba(0,0,0,0.9);
 }
 
 .msg{
   font-size:18px;
-  margin:20px 10px;
+  margin:20px 12px;
   line-height:1.6;
+  font-weight:500;
 }
 
 input{
   width:90%;
   max-width:320px;
-  padding:14px;
+  padding:15px;
   font-size:17px;
-  border-radius:12px;
+  border-radius:14px;
   border:none;
   outline:none;
 }
@@ -104,18 +111,18 @@ input{
 .btn{
   width:90%;
   max-width:320px;
-  margin-top:12px;
-  padding:15px;
-  font-size:18px;
+  margin-top:14px;
+  padding:16px;
+  font-size:19px;
   border:none;
-  border-radius:14px;
-  font-weight:700;
+  border-radius:16px;
+  font-weight:800;
   cursor:pointer;
+  background:#25D366;
+  color:#000;
 }
 
-.whatsapp{background:#25D366;color:#000}
-.insta{background:#ffeb3b;color:#000}
-
+/* Falling effects */
 .flower,.maha{
   position:fixed;
   top:-30px;
@@ -132,9 +139,14 @@ input{
 <body>
 
 <div class="container" id="capture">
-  <div class="from" id="fromName"></div>
 
-  <div class="glow">🙏 Maha Shivratri 🙏<br>Hardik Shubhkamnaye</div>
+  <!-- NAME VERY BIG -->
+  <div class="big-name" id="fromName"></div>
+
+  <div class="glow">
+    🙏 Maha Shivratri 🙏<br>
+    Hardik Shubhkamnaye
+  </div>
 
   <div class="om">🕉️ Om Namah Shivay 🕉️</div>
 
@@ -144,14 +156,17 @@ input{
    src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
 
   <div class="msg">
-    Mahadev aapke jeevan se sab dukh, rog aur
-    kasht door kare aur sukh-samriddhi de 🙏
+    Mahadev aapke jeevan me shanti, shakti aur
+    samriddhi banaye rakhe 🙏<br>
+    Har Har Mahadev 🔱
   </div>
 
   <input id="nameInput" placeholder="Yahan apna naam likhen">
-  <br>
-  <button class="btn whatsapp" onclick="shareWA()">WhatsApp par Share kare</button>
-  <button class="btn insta" onclick="downloadImage()">Instagram Story Image</button>
+
+  <button class="btn" onclick="shareWA()">
+    WhatsApp par apna link banaye
+  </button>
+
 </div>
 
 <script>
@@ -161,6 +176,8 @@ const n=p.get("name");
 if(n){
  document.getElementById("fromName").innerText=
  decodeURIComponent(n)+" ki taraf se";
+}else{
+ document.getElementById("fromName").innerText="🙏 Shiv Bhakt 🙏";
 }
 
 // WhatsApp
@@ -197,7 +214,7 @@ setInterval(()=>{
  f.style.animationDuration=(3+Math.random()*3)+"s";
  document.body.appendChild(f);
  setTimeout(()=>f.remove(),7000);
-},250);
+},260);
 
 setInterval(()=>{
  let m=document.createElement("div");
@@ -208,20 +225,8 @@ setInterval(()=>{
  m.style.animationDuration=(4+Math.random()*4)+"s";
  document.body.appendChild(m);
  setTimeout(()=>m.remove(),9000);
-},600);
-
-// Image download
-function downloadImage(){
- html2canvas(capture).then(c=>{
-  let a=document.createElement("a");
-  a.download="Maha-Shivratri-Wish.png";
-  a.href=c.toDataURL();
-  a.click();
- });
-}
+},650);
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 </body>
 </html>
