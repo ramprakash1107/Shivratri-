@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maha Shivratri Wishes</title>
 
-<!-- ✅ GOOGLE ANALYTICS -->
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGFTG4F9W"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
@@ -14,11 +14,10 @@ gtag('js', new Date());
 gtag('config', 'G-KSGFTG4F9W');
 </script>
 
-<!-- ✅ WHATSAPP PREVIEW -->
+<!-- WhatsApp Preview -->
 <meta property="og:title" content="🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏">
 <meta property="og:description" content="Mahadev aapke jeevan me shanti, shakti aur samriddhi banaye rakhe 🔱">
 <meta property="og:image" content="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
-<meta property="og:type" content="website">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
@@ -30,46 +29,35 @@ body{
   color:white;
   text-align:center;
 }
-
 .container{
   max-width:420px;
   margin:auto;
   padding:15px;
 }
-
 #fromName{
   font-size:26px;
   font-weight:800;
-  margin-top:10px;
   text-shadow:0 0 15px #fff;
 }
-
 h1{
   font-size:28px;
-  margin:10px 0;
   text-shadow:0 0 15px #fff;
 }
-
 #timer{
   font-size:18px;
   font-weight:600;
-  margin:10px 0;
 }
-
 .shiv-img{
   width:100%;
   max-width:320px;
   border-radius:25px;
   box-shadow:0 0 25px rgba(255,255,255,0.6);
   margin:15px auto;
-  display:block;
 }
-
 .msg{
   font-size:16px;
   line-height:1.5;
 }
-
 input{
   width:90%;
   padding:12px;
@@ -78,11 +66,10 @@ input{
   font-size:16px;
   text-align:center;
 }
-
 button{
-  margin-top:12px;
+  margin:8px;
   padding:12px 20px;
-  font-size:16px;
+  font-size:15px;
   font-weight:600;
   border:none;
   border-radius:25px;
@@ -92,7 +79,7 @@ button{
 </style>
 </head>
 
-<body onclick="playSong()">
+<body onclick="playBhajan()">
 
 <div class="container">
 
@@ -105,7 +92,7 @@ button{
   <div id="timer">Loading...</div>
 
   <img class="shiv-img"
-  src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
+   src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
 
   <div class="msg">
     Mahadev aapke jeevan me shanti, shakti aur samriddhi banaye rakhe 🙏<br>
@@ -117,58 +104,73 @@ button{
   <br>
 
   <button onclick="share()">WhatsApp par apna link banaye</button>
+  <br>
+  <button onclick="nextBhajan()">🔁 Next Bhajan</button>
 
 </div>
 
-<!-- ✅ SHIV BHAJAN -->
-<audio id="shivSong" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_0c2a2d07e6.mp3" type="audio/mpeg">
-</audio>
+<!-- 🔊 SHIV BHAJAN PLAYLIST -->
+<audio id="bhajan" loop></audio>
 
 <script>
-// ✅ NAME FROM URL
+// NAME
 const params = new URLSearchParams(window.location.search);
 const userName = params.get("name");
 if(userName){
-  document.getElementById("fromName").innerText =
-  "🌸 " + userName.toUpperCase() + " KI TARAF SE 🌸";
+ document.getElementById("fromName").innerText =
+ "🌸 " + userName.toUpperCase() + " KI TARAF SE 🌸";
 }
 
-// ✅ TIMER WITH SECONDS
+// TIMER
 const shivDate = new Date("Feb 15, 2026 00:00:00").getTime();
 setInterval(()=>{
-  const now = new Date().getTime();
-  const d = shivDate - now;
-  if(d<0) return;
-  const days = Math.floor(d/(1000*60*60*24));
-  const hrs  = Math.floor((d%(1000*60*60*24))/(1000*60*60));
-  const min  = Math.floor((d%(1000*60*60))/(1000*60));
-  const sec  = Math.floor((d%(1000*60))/1000);
-  document.getElementById("timer").innerText =
-  `⏳ ${days} din ${hrs} ghante ${min} minute ${sec} second baki`;
+ const now = new Date().getTime();
+ const d = shivDate - now;
+ if(d<0) return;
+ const days = Math.floor(d/(1000*60*60*24));
+ const hrs  = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+ const min  = Math.floor((d%(1000*60*60))/(1000*60));
+ const sec  = Math.floor((d%(1000*60))/1000);
+ document.getElementById("timer").innerText =
+ `⏳ ${days} din ${hrs} ghante ${min} minute ${sec} second baki`;
 },1000);
 
-// ✅ WHATSAPP SHARE
+// WHATSAPP SHARE
 function share(){
-  const n = document.getElementById("nameInput").value.trim();
-  if(!n){ alert("Naam likhiye"); return; }
-  const link = location.origin + location.pathname + "?name=" + encodeURIComponent(n);
-  const msg =
-`🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏
+ const n=document.getElementById("nameInput").value.trim();
+ if(!n){alert("Naam likhiye");return;}
+ const link=location.origin+location.pathname+"?name="+encodeURIComponent(n);
+ const msg=`🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏
 ${n} ki taraf se
 
-👇 Apna naam likhne ke liye link kholen
+👇 Apna naam likhne ke liye link
 ${link}`;
-  window.open("https://wa.me/?text="+encodeURIComponent(msg));
+ window.open("https://wa.me/?text="+encodeURIComponent(msg));
 }
 
-// ✅ SONG PLAY (mobile safe)
-let played=false;
-function playSong(){
-  if(!played){
-    document.getElementById("shivSong").play();
-    played=true;
-  }
+// 🔊 BHAJAN LIST
+const bhajans=[
+ "https://cdn.pixabay.com/audio/2022/03/15/audio_0c2a2d07e6.mp3",
+ "https://cdn.pixabay.com/audio/2022/10/18/audio_5f09b7b74c.mp3",
+ "https://cdn.pixabay.com/audio/2022/08/30/audio_31d7c6b5bb.mp3"
+];
+
+let index=0;
+let started=false;
+const audio=document.getElementById("bhajan");
+
+function playBhajan(){
+ if(!started){
+   audio.src=bhajans[index];
+   audio.play();
+   started=true;
+ }
+}
+
+function nextBhajan(){
+ index=(index+1)%bhajans.length;
+ audio.src=bhajans[index];
+ audio.play();
 }
 </script>
 
