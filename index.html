@@ -1,84 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
-<title>Happy Maha Shivratri</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maha Shivratri Wishes</title>
+
 <style>
-body {
-  background: url('https://images.pexels.com/photos/10666004/pexels-photo-10666004.jpeg') center/cover no-repeat;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  color: white;
-  margin: 0;
-  padding: 0;
+body{
+    margin:0;
+    padding:0;
+    text-align:center;
+    font-family:Arial;
+    background:black;
+    color:white;
 }
-.container {
-  padding: 50px;
+
+.om{
+    font-size:60px;
+    color:gold;
+    animation: glow 1.5s infinite alternate;
 }
-input {
-  padding: 10px;
-  font-size: 18px;
-  width: 250px;
-  margin-top: 20px;
+
+@keyframes glow{
+    from{ text-shadow:0 0 10px red;}
+    to{ text-shadow:0 0 25px yellow;}
 }
-button {
-  padding: 12px 20px;
-  font-size: 18px;
-  margin-top: 15px;
-  cursor: pointer;
+
+h1{ color:orange; }
+
+img{
+    width:220px;
+    margin:15px 0;
+    border-radius:10px;
+    box-shadow:0 0 20px red;
 }
-#wishBox {
-  display: none;
-  margin-top: 30px;
-  font-size: 28px;
-  color: gold;
-  text-shadow: 2px 2px 6px black;
+
+input{
+    padding:10px;
+    width:80%;
+    max-width:300px;
+    border:none;
+    border-radius:5px;
 }
-.shareBtn {
-  display: none;
-  margin-top: 20px;
+
+button{
+    padding:10px 20px;
+    margin-top:10px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
 }
+
+.generate{ background:red; color:white; }
+.whatsapp{ background:#25D366; color:white; display:none; }
+
+#wishBox{
+    margin-top:20px;
+    font-size:20px;
+    color:yellow;
+}
+
 </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>ॐ नमः शिवाय</h1>
-  <p>Maha Shivratri Wishes Website</p>
+<div class="om">ॐ</div>
 
-  <!-- Name input -->
-  <input type="text" id="nameInput" placeholder="Apna Naam Likhiye">
-  <br>
-  <button onclick="showWish()">Generate Wish</button>
+<h1>🙏 Maha Shivratri Ki Hardik Shubhkamnaye 🙏</h1>
 
-  <!-- Personalized Wish -->
-  <div id="wishBox"></div>
+<img src="https://i.imgur.com/4AiXzf8.jpeg">
 
-  <!-- WhatsApp Share -->
-  <button class="shareBtn" onclick="shareWhatsApp()">WhatsApp par Share Kare</button>
-</div>
+<br>
+
+<input type="text" id="name" placeholder="अपना नाम लिखें">
+<br>
+<button class="generate" onclick="generateLink()">Wish Generate करें</button>
+<br>
+<button class="whatsapp" id="shareBtn" onclick="shareWhatsApp()">WhatsApp पर शेयर करें</button>
+
+<div id="wishBox"></div>
 
 <script>
-function showWish() {
-  let name = document.getElementById('nameInput').value.trim();
-  if (name === "") {
-    alert("Please enter your name");
-    return;
-  }
 
-  let wishText = `ॐ नमः शिवाय 🙏\nHappy Maha Shivratri!\n\n${name} ki taraf se aapko hardik शुभकामनाएं!`;
-  document.getElementById('wishBox').innerText = wishText;
-  document.getElementById('wishBox').style.display = "block";
-  document.querySelector('.shareBtn').style.display = "inline-block";
+/* URL से नाम पढ़ना */
+function getNameFromURL(){
+    const params = new URLSearchParams(window.location.search);
+    return params.get("name");
 }
 
-function shareWhatsApp() {
-  let text = encodeURIComponent(
-    document.getElementById('wishBox').innerText +
-    "\n\nShare this message with your friends and family!"
-  );
-  window.open(`https://wa.me/?text=${text}`, "_blank");
+var existingName = getNameFromURL();
+
+if(existingName){
+    document.getElementById("wishBox").innerHTML =
+    "🔱 " + existingName + " की तरफ से आपको महाशिवरात्रि की हार्दिक शुभकामनाएं 🙏<br><br>अपना नाम लिखकर आगे भेजें 👇";
 }
+
+/* नया लिंक बनाना */
+var finalLink = "";
+
+function generateLink(){
+    var name = document.getElementById("name").value;
+
+    if(name==""){
+        alert("कृपया अपना नाम लिखें");
+        return;
+    }
+
+    finalLink = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(name);
+
+    document.getElementById("wishBox").innerHTML =
+    "🔱 " + name + " की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏<br><br>इस लिंक को शेयर करें 👇<br>" + finalLink;
+
+    document.getElementById("shareBtn").style.display = "inline-block";
+}
+
+/* WhatsApp शेयर */
+function shareWhatsApp(){
+    var text = "🔱 Maha Shivratri Wish 🔱\nअपना नाम लिखकर देखो 👇\n" + finalLink;
+    var url = "https://wa.me/?text=" + encodeURIComponent(text);
+    window.open(url, '_blank');
+}
+
 </script>
 
 </body>
