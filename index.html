@@ -11,17 +11,15 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-KSGFTG4F9W');
 </script>
 
 <style>
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 body{
@@ -30,66 +28,71 @@ body{
     justify-content:center;
     align-items:center;
     text-align:center;
-    color:white;
-    background: linear-gradient(135deg, #000000, #1a0033, #330000);
+    overflow:hidden;
+    background: linear-gradient(135deg, #ff5f6d, #ffc371, #24c6dc, #514a9d);
     background-size:400% 400%;
-    animation:bgAnimation 10s infinite alternate;
+    animation:bgAnimation 15s ease infinite;
+    color:white;
 }
 
 @keyframes bgAnimation{
-    0%{background-position:left;}
-    100%{background-position:right;}
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 
 .container{
     background: rgba(0,0,0,0.7);
-    padding:25px;
-    border-radius:15px;
-    width:95%;
-    max-width:400px;
-    box-shadow:0 0 25px rgba(255,0,0,0.6);
+    padding:30px;
+    border-radius:20px;
+    width:90%;
+    max-width:450px;
+    box-shadow:0 0 30px rgba(255,255,255,0.5);
+    position:relative;
+    z-index:1;
 }
 
 .om{
-    font-size:55px;
+    font-size:70px;
     color:gold;
     animation:glow 1.5s infinite alternate;
 }
 
 @keyframes glow{
-    from{ text-shadow:0 0 10px red; }
-    to{ text-shadow:0 0 25px yellow; }
+    from{ text-shadow:0 0 15px red; }
+    to{ text-shadow:0 0 40px yellow; }
 }
 
 h1{
-    font-size:20px;
-    margin:10px 0;
+    font-size:24px;
+    margin:15px 0;
     color:orange;
 }
 
 img{
-    width:220px;
+    width:250px;
     border-radius:12px;
-    margin:15px 0;
-    box-shadow:0 0 20px orange;
+    margin:20px 0;
+    box-shadow:0 0 25px gold;
 }
 
 input{
-    padding:10px;
+    padding:12px;
     width:90%;
     border:none;
-    border-radius:6px;
-    margin-top:10px;
-    font-size:16px;
+    border-radius:8px;
+    margin-top:15px;
+    font-size:18px;
 }
 
 button{
-    padding:10px 20px;
-    margin-top:12px;
+    padding:12px 25px;
+    margin-top:15px;
     border:none;
-    border-radius:6px;
-    font-size:15px;
+    border-radius:8px;
+    font-size:18px;
     cursor:pointer;
+    font-weight:bold;
 }
 
 .generate{
@@ -104,76 +107,75 @@ button{
 }
 
 #wishBox{
-    margin-top:15px;
-    font-size:18px;
+    margin-top:20px;
+    font-size:20px;
     color:yellow;
 }
 
 .footer{
-    margin-top:15px;
-    font-size:14px;
-    color:#ccc;
+    margin-top:20px;
+    font-size:16px;
+    color:#fff;
+    position:relative;
 }
 
+/* Har Har Mahadev text rain effect */
+.fallingText{
+    position:absolute;
+    top:-50px;
+    font-size:20px;
+    color:#ffeb3b;
+    font-weight:bold;
+    pointer-events:none;
+    z-index:0;
+    user-select:none;
+}
 </style>
 </head>
-
 <body>
 
 <div class="container">
+    <div class="om">ॐ</div>
 
-<div class="om">ॐ</div>
+    <h1>🙏 Maha Shivratri Ki Hardik Shubhkamnaye 🙏</h1>
 
-<h1>🙏 Maha Shivratri Ki Hardik Shubhkamnaye 🙏</h1>
+    <!-- काम करने वाली Shiv Ji image -->
+    <img src="https://i.postimg.cc/5tF2V5xD/shivji.png" alt="Shiv Ji">
 
-<!-- काम करने वाली Shiv Ji image -->
-<img src="https://images.unsplash.com/photo-1612333263380-5db776967d19?auto=format&fit=crop&w=500&q=80" alt="Shiv Ji">
+    <div id="wishBox"></div>
 
-<div id="wishBox"></div>
+    <input type="text" id="name" placeholder="अपना नाम लिखें">
+    <br>
+    <button class="generate" onclick="generateLink()">Wish बनाएं</button>
+    <br>
+    <button class="share" id="shareBtn" onclick="shareWhatsApp()">WhatsApp पर शेयर करें</button>
 
-<input type="text" id="name" placeholder="अपना नाम लिखें">
-
-<br>
-
-<button class="generate" onclick="generateLink()">Wish बनाएं</button>
-
-<br>
-
-<button class="share" id="shareBtn" onclick="shareWhatsApp()">WhatsApp पर शेयर करें</button>
-
-<div class="footer">Har Har Mahadev 🔱</div>
-
+    <div class="footer">Har Har Mahadev 🔱</div>
 </div>
 
 <script>
-
+// Name from URL
 function getNameFromURL(){
     const params = new URLSearchParams(window.location.search);
     return params.get("name");
 }
 
 var existingName = getNameFromURL();
-
 if(existingName){
     document.getElementById("wishBox").innerHTML =
     "🔱 " + existingName + " की तरफ से आपको महाशिवरात्रि की हार्दिक शुभकामनाएं 🙏<br><br>अपना नाम लिखकर आगे भेजें 👇";
 }
 
 var finalLink="";
-
 function generateLink(){
     var name = document.getElementById("name").value;
-
     if(name==""){
         alert("कृपया अपना नाम लिखें");
         return;
     }
-
     finalLink = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(name);
-
     document.getElementById("wishBox").innerHTML =
     "🔱 " + name + " की तरफ से आपको महाशिवरात्रि की शुभकामनाएं 🙏";
-
     document.getElementById("shareBtn").style.display="inline-block";
 }
 
@@ -181,6 +183,33 @@ function shareWhatsApp(){
     var text="🔱 Maha Shivratri Wish 🔱\nअपना नाम लिखकर देखो 👇\n"+finalLink;
     window.open("https://wa.me/?text="+encodeURIComponent(text),'_blank');
 }
+
+// Falling text animation
+const colors = ["#ffeb3b","#ff5722","#00e676","#03a9f4","#ff4081"];
+function createFallingText(){
+    const text = document.createElement("div");
+    text.className = "fallingText";
+    text.innerText = "Har Har Mahadev 🔱";
+    text.style.left = Math.random() * window.innerWidth + "px";
+    text.style.color = colors[Math.floor(Math.random()*colors.length)];
+    text.style.fontSize = (16 + Math.random()*24) + "px";
+    document.body.appendChild(text);
+
+    let topPos = -50;
+    const speed = 1 + Math.random()*3;
+    function fall(){
+        topPos += speed;
+        text.style.top = topPos + "px";
+        if(topPos < window.innerHeight + 50){
+            requestAnimationFrame(fall);
+        } else {
+            text.remove();
+        }
+    }
+    fall();
+}
+
+setInterval(createFallingText, 500); // हर 0.5 सेकंड में नया text
 
 </script>
 
