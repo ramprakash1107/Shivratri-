@@ -5,275 +5,186 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maha Shivratri Wishes</title>
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGFTG4F9W"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-KSGFTG4F9W');
-</script>
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
-
 body{
   margin:0;
-  min-height:100vh;
-  font-family:'Poppins',Arial,sans-serif;
-  text-align:center;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ff0080,#7928ca,#ff8c00);
   color:white;
+  text-align:center;
   overflow-x:hidden;
-  background:linear-gradient(-45deg,#ff6a00,#ee0979,#8e2de2,#4a00e0);
-  background-size:400% 400%;
-  animation:bgmove 10s ease infinite;
 }
 
-@keyframes bgmove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
+/* MAIN CONTAINER */
 .container{
-  padding:20px 15px 40px;
-  position:relative;
-  z-index:2;
-}
-
-/* BIG NAME */
-.big-name{
-  font-size:46px;
-  font-weight:900;
-  margin-top:10px;
-  text-transform:uppercase;
-  position:relative;
-  overflow:hidden;
-  text-shadow:
-    0 0 10px #fff,
-    0 0 30px #ffeb3b,
-    0 0 60px #ff9800;
-}
-
-/* shine */
-.big-name::after{
-  content:"";
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:100%;
-  background:linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.9),
-    transparent
-  );
-  animation:shine 3s infinite;
-}
-
-@keyframes shine{
-  0%{left:-100%}
-  50%{left:100%}
-  100%{left:100%}
-}
-
-/* heading */
-.glow{
-  font-size:36px;
-  font-weight:900;
-  margin:18px 0 8px;
-  line-height:1.2;
-  text-shadow:
-    0 0 5px #fff,
-    0 0 15px #ffeb3b,
-    0 0 35px #ff5722;
-}
-
-.om{
-  font-size:20px;
-  margin-bottom:10px;
-  animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-  0%,100%{opacity:1}
-  50%{opacity:0.6}
-}
-
-#countdown{
-  font-size:22px;
-  font-weight:800;
-  margin:12px 0 18px;
-}
-
-/* image */
-.hero{
-  width:95%;
   max-width:420px;
-  margin:18px auto;
-  border-radius:28px;
-  box-shadow:
-    0 0 35px rgba(255,255,255,0.45),
-    0 0 90px rgba(0,0,0,0.9);
+  margin:auto;
+  padding:15px;
 }
 
-.msg{
+/* NAME */
+#fromName{
+  font-size:26px;
+  font-weight:800;
+  text-shadow:0 0 12px #fff;
+  margin-top:10px;
+}
+
+/* HEADING */
+h1{
+  font-size:28px;
+  margin:10px 0;
+  text-shadow:0 0 15px #fff;
+}
+
+/* TIMER */
+#timer{
   font-size:18px;
-  margin:18px 12px;
-  line-height:1.6;
-  font-weight:500;
+  font-weight:600;
+  margin:8px 0 15px;
 }
 
+/* IMAGE */
+.shiv-img{
+  width:100%;
+  max-width:320px;   /* MEDIUM SIZE */
+  border-radius:25px;
+  box-shadow:0 0 25px rgba(255,255,255,0.6);
+  margin:15px auto;
+  display:block;
+}
+
+/* MESSAGE */
+.msg{
+  font-size:16px;
+  margin:12px 0;
+  line-height:1.5;
+}
+
+/* INPUT */
 input{
   width:90%;
-  max-width:330px;
-  padding:15px;
-  font-size:17px;
-  border-radius:14px;
+  padding:12px;
+  border-radius:25px;
   border:none;
   outline:none;
+  font-size:16px;
+  text-align:center;
 }
 
-.btn{
-  width:90%;
-  max-width:330px;
-  margin-top:14px;
-  padding:16px;
-  font-size:19px;
+/* BUTTON */
+button{
+  margin-top:12px;
+  padding:12px 20px;
+  font-size:16px;
+  font-weight:600;
   border:none;
-  border-radius:16px;
-  font-weight:800;
-  cursor:pointer;
-  background:#25D366;
+  border-radius:25px;
+  background:#00e676;
   color:#000;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* footer note */
-.footer-note{
-  margin-top:28px;
-  font-size:15px;
-  opacity:0.85;
-}
-
-/* falling effects */
-.flower,.maha{
+/* FLOATING TEXT */
+.floating{
   position:fixed;
-  top:-30px;
-  animation:fall linear infinite;
-  z-index:1;
+  animation:float 8s linear infinite;
+  font-size:14px;
+  opacity:0.7;
 }
 
-@keyframes fall{
-  to{transform:translateY(120vh)}
+@keyframes float{
+  from{top:100%;opacity:0}
+  to{top:-10%;opacity:1}
 }
 </style>
 </head>
 
-<body>
+<body onclick="playSound()">
 
 <div class="container">
 
-  <!-- BIG NAME -->
-  <div class="big-name" id="fromName"></div>
+  <div id="fromName">🌸 RAMPPRAKASH KI TARAF SE 🌸</div>
 
-  <div class="glow">
-    🙏 Maha Shivratri 🙏<br>
-    Hardik Shubhkamnaye
-  </div>
+  <h1>🙏 Maha Shivratri 🙏<br>Hardik Shubhkamnaye</h1>
 
-  <div class="om">🕉️ Om Namah Shivay 🕉️</div>
+  <div>ॐ Om Namah Shivay ॐ</div>
 
-  <div id="countdown" class="glow"></div>
+  <div id="timer">Loading...</div>
 
-  <img class="hero"
-   src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
+  <img class="shiv-img"
+  src="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
 
   <div class="msg">
-    Mahadev aapke jeevan me shanti, shakti aur
-    samriddhi banaye rakhe 🙏<br>
-    Har Har Mahadev 🔱
+    Mahadev aapke jeevan me shanti, shakti aur samriddhi banaye rakhe 🙏<br>
+    <b>Har Har Mahadev 🔱</b>
   </div>
 
   <input id="nameInput" placeholder="Yahan apna naam likhen">
 
-  <button class="btn" onclick="shareWA()">
-    WhatsApp par apna link banaye
-  </button>
+  <br>
 
-  <div class="footer-note">
-    🔱 Apna naam likhiye aur is pavitra sandesh ko aage share kijiye 🔱
-  </div>
+  <button onclick="share()">WhatsApp par apna link banaye</button>
 
 </div>
 
+<!-- AUDIO -->
+<audio id="bgSound" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_0c2a2d07e6.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-// Typing name from link
-const p = new URLSearchParams(location.search);
-const fullName = p.get("name")
- ? "🌸 " + decodeURIComponent(p.get("name")) + " ki taraf se 🌸"
- : "🙏 Shiv Bhakt 🙏";
-
-const el = document.getElementById("fromName");
-let i = 0;
-function typeName(){
-  if(i < fullName.length){
-    el.innerText += fullName.charAt(i);
-    i++;
-    setTimeout(typeName, 80);
-  }
-}
-typeName();
-
-// WhatsApp share
-function shareWA(){
- const nm=document.getElementById("nameInput").value.trim();
- if(!nm){alert("Apna naam likhen");return;}
- const link=location.origin+location.pathname+"?name="+encodeURIComponent(nm);
- const msg="🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏\n\n"+nm+" ki taraf se\n\n"+link;
- window.open("https://wa.me/?text="+encodeURIComponent(msg));
+/* NAME SET */
+const params = new URLSearchParams(window.location.search);
+const userName = params.get("name");
+if(userName){
+  document.getElementById("fromName").innerText =
+  "🌸 " + userName.toUpperCase() + " KI TARAF SE 🌸";
 }
 
-// Countdown with seconds
-const target=new Date("2026-02-15T00:00:00").getTime();
+/* TIMER WITH SECONDS */
+const shivDate = new Date("Feb 15, 2026 00:00:00").getTime();
 setInterval(()=>{
- const now=new Date().getTime();
- const d=target-now;
- if(d<=0){
-  countdown.innerText="🙏 Aaj Maha Shivratri hai 🙏";
-  return;
- }
- const days=Math.floor(d/86400000);
- const hrs=Math.floor((d%86400000)/3600000);
- const min=Math.floor((d%3600000)/60000);
- const sec=Math.floor((d%60000)/1000);
- countdown.innerText=
+  const now = new Date().getTime();
+  const d = shivDate - now;
+  if(d<0) return;
+  const days = Math.floor(d/(1000*60*60*24));
+  const hrs  = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  const min  = Math.floor((d%(1000*60*60))/(1000*60));
+  const sec  = Math.floor((d%(1000*60))/1000);
+  document.getElementById("timer").innerText =
   `⏳ ${days} din ${hrs} ghante ${min} minute ${sec} second baki`;
 },1000);
 
-// Flower rain
-const flowers=["🌸","🌺","🌼","🌷"];
-setInterval(()=>{
- let f=document.createElement("div");
- f.className="flower";
- f.innerText=flowers[Math.floor(Math.random()*flowers.length)];
- f.style.left=Math.random()*100+"vw";
- f.style.fontSize="26px";
- f.style.animationDuration=(3+Math.random()*3)+"s";
- document.body.appendChild(f);
- setTimeout(()=>f.remove(),7000);
-},280);
+/* SHARE */
+function share(){
+  const n = document.getElementById("nameInput").value.trim();
+  if(!n){alert("Naam likhiye");return;}
+  const link = location.origin + location.pathname + "?name=" + encodeURIComponent(n);
+  window.open("https://wa.me/?text=" + encodeURIComponent("🙏 Maha Shivratri Wishes 🙏\n" + link));
+}
 
-// Har Har Mahadev rain (slow)
+/* SOUND (CLICK REQUIRED) */
+let played=false;
+function playSound(){
+  if(!played){
+    document.getElementById("bgSound").play();
+    played=true;
+  }
+}
+
+/* FLOATING TEXT */
 setInterval(()=>{
- let m=document.createElement("div");
- m.className="maha";
- m.innerText="Har Har Mahadev";
- m.style.left=Math.random()*100+"vw";
- m.style.fontSize="15px";
- m.style.animationDuration=(5+Math.random()*4)+"s";
- document.body.appendChild(m);
- setTimeout(()=>m.remove(),10000);
+  const f=document.createElement("div");
+  f.className="floating";
+  f.style.left=Math.random()*100+"%";
+  f.innerText="Har Har Mahadev";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),8000);
 },1200);
 </script>
 
