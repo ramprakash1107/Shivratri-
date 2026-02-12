@@ -5,7 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maha Shivratri Wishes</title>
 
-<!-- Google Font -->
+<!-- ✅ GOOGLE ANALYTICS -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KSGFTG4F9W"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-KSGFTG4F9W');
+</script>
+
+<!-- ✅ WHATSAPP PREVIEW -->
+<meta property="og:title" content="🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏">
+<meta property="og:description" content="Mahadev aapke jeevan me shanti, shakti aur samriddhi banaye rakhe 🔱">
+<meta property="og:image" content="https://i.postimg.cc/J7pZ6ZVM/sugandha-art-lord-shiva-8413252-1920.png">
+<meta property="og:type" content="website">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
@@ -15,67 +29,56 @@ body{
   background:linear-gradient(135deg,#ff0080,#7928ca,#ff8c00);
   color:white;
   text-align:center;
-  overflow-x:hidden;
 }
 
-/* MAIN CONTAINER */
 .container{
   max-width:420px;
   margin:auto;
   padding:15px;
 }
 
-/* NAME */
 #fromName{
   font-size:26px;
   font-weight:800;
-  text-shadow:0 0 12px #fff;
   margin-top:10px;
+  text-shadow:0 0 15px #fff;
 }
 
-/* HEADING */
 h1{
   font-size:28px;
   margin:10px 0;
   text-shadow:0 0 15px #fff;
 }
 
-/* TIMER */
 #timer{
   font-size:18px;
   font-weight:600;
-  margin:8px 0 15px;
+  margin:10px 0;
 }
 
-/* IMAGE */
 .shiv-img{
   width:100%;
-  max-width:320px;   /* MEDIUM SIZE */
+  max-width:320px;
   border-radius:25px;
   box-shadow:0 0 25px rgba(255,255,255,0.6);
   margin:15px auto;
   display:block;
 }
 
-/* MESSAGE */
 .msg{
   font-size:16px;
-  margin:12px 0;
   line-height:1.5;
 }
 
-/* INPUT */
 input{
   width:90%;
   padding:12px;
   border-radius:25px;
   border:none;
-  outline:none;
   font-size:16px;
   text-align:center;
 }
 
-/* BUTTON */
 button{
   margin-top:12px;
   padding:12px 20px;
@@ -84,27 +87,12 @@ button{
   border:none;
   border-radius:25px;
   background:#00e676;
-  color:#000;
   cursor:pointer;
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
-}
-
-/* FLOATING TEXT */
-.floating{
-  position:fixed;
-  animation:float 8s linear infinite;
-  font-size:14px;
-  opacity:0.7;
-}
-
-@keyframes float{
-  from{top:100%;opacity:0}
-  to{top:-10%;opacity:1}
 }
 </style>
 </head>
 
-<body onclick="playSound()">
+<body onclick="playSong()">
 
 <div class="container">
 
@@ -132,13 +120,13 @@ button{
 
 </div>
 
-<!-- AUDIO -->
-<audio id="bgSound" loop>
+<!-- ✅ SHIV BHAJAN -->
+<audio id="shivSong" loop>
   <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_0c2a2d07e6.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* NAME SET */
+// ✅ NAME FROM URL
 const params = new URLSearchParams(window.location.search);
 const userName = params.get("name");
 if(userName){
@@ -146,7 +134,7 @@ if(userName){
   "🌸 " + userName.toUpperCase() + " KI TARAF SE 🌸";
 }
 
-/* TIMER WITH SECONDS */
+// ✅ TIMER WITH SECONDS
 const shivDate = new Date("Feb 15, 2026 00:00:00").getTime();
 setInterval(()=>{
   const now = new Date().getTime();
@@ -160,32 +148,28 @@ setInterval(()=>{
   `⏳ ${days} din ${hrs} ghante ${min} minute ${sec} second baki`;
 },1000);
 
-/* SHARE */
+// ✅ WHATSAPP SHARE
 function share(){
   const n = document.getElementById("nameInput").value.trim();
-  if(!n){alert("Naam likhiye");return;}
+  if(!n){ alert("Naam likhiye"); return; }
   const link = location.origin + location.pathname + "?name=" + encodeURIComponent(n);
-  window.open("https://wa.me/?text=" + encodeURIComponent("🙏 Maha Shivratri Wishes 🙏\n" + link));
+  const msg =
+`🙏 Maha Shivratri ki Hardik Shubhkamnaye 🙏
+${n} ki taraf se
+
+👇 Apna naam likhne ke liye link kholen
+${link}`;
+  window.open("https://wa.me/?text="+encodeURIComponent(msg));
 }
 
-/* SOUND (CLICK REQUIRED) */
+// ✅ SONG PLAY (mobile safe)
 let played=false;
-function playSound(){
+function playSong(){
   if(!played){
-    document.getElementById("bgSound").play();
+    document.getElementById("shivSong").play();
     played=true;
   }
 }
-
-/* FLOATING TEXT */
-setInterval(()=>{
-  const f=document.createElement("div");
-  f.className="floating";
-  f.style.left=Math.random()*100+"%";
-  f.innerText="Har Har Mahadev";
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),8000);
-},1200);
 </script>
 
 </body>
