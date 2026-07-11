@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Same As Screenshot - Arrow Escape</title>
+    <title>Arrow Escape Game</title>
     <style>
         * {
             box-sizing: border-box;
@@ -19,12 +19,12 @@
             align-items: center;
             justify-content: flex-start;
             min-height: 100vh;
-            padding-top: 30px;
+            padding-top: 25px;
             user-select: none;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* Top Bar from Screenshot */
+        /* Top bar style */
         .top-bar {
             width: 100%;
             max-width: 360px;
@@ -40,26 +40,27 @@
         }
 
         .btn {
-            background-color: #eef2fe;
+            background-color: #eff2fe;
             border: none;
             border-radius: 50%;
-            width: 46px;
-            height: 46px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 22px;
+            font-size: 20px;
             color: #4d60ff;
         }
 
         .hearts {
             display: flex;
-            gap: 4px;
+            gap: 5px;
             font-size: 24px;
         }
 
         .heart {
+            color: #ff4d6d;
             transition: all 0.3s ease;
         }
 
@@ -68,23 +69,22 @@
             transform: scale(0.7);
         }
 
-        /* Screenshot Jaisa Grid Board */
+        /* Responsive Dotted Grid Board */
         .game-board {
             width: 340px;
-            height: 480px;
+            height: 460px;
             position: relative;
             background-image: radial-gradient(#d1d5db 2.5px, transparent 2.5px);
             background-size: 40px 40px;
-            background-position: 20px 20px;
-            margin-top: 40px;
-            overflow: hidden;
+            background-position: 10px 10px;
+            margin-top: 35px;
         }
 
-        /* BIGGER & CLEAN ARROWS LIKE SCREENSHOT */
+        /* Exact screenshot vector type arrows */
         .arrow {
             position: absolute;
-            width: 50px;  /* Size bada kar diya */
-            height: 50px; /* Size bada kar diya */
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -93,15 +93,14 @@
             z-index: 5;
         }
 
-        /* Thick Line Custom Arrow Style */
         .arrow::before {
             content: '';
             position: absolute;
-            width: 32px;
+            width: 34px;
             height: 6px;
-            background-color: #111827;
+            background-color: #161b26;
             border-radius: 3px;
-            left: 5px;
+            left: 4px;
         }
 
         .arrow::after {
@@ -109,14 +108,14 @@
             position: absolute;
             width: 14px;
             height: 14px;
-            border-top: 6px solid #111827;
-            border-right: 6px solid #111827;
+            border-top: 6px solid #161b26;
+            border-right: 6px solid #161b26;
             transform: rotate(45deg);
-            right: 7px;
+            right: 6px;
             border-radius: 2px;
         }
 
-        /* Base rotations */
+        /* Rotation base setup */
         .arrow[data-dir="right"] { transform: rotate(0deg); }
         .arrow[data-dir="down"] { transform: rotate(90deg); }
         .arrow[data-dir="left"] { transform: rotate(180deg); }
@@ -134,18 +133,18 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             z-index: 10;
             display: none;
         }
 
         .overlay h2 {
             font-size: 32px;
-            color: #111827;
+            color: #161b26;
         }
 
         .overlay button {
-            padding: 14px 32px;
+            padding: 14px 35px;
             font-size: 18px;
             font-weight: bold;
             background-color: #4d60ff;
@@ -153,16 +152,15 @@
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(77,96,255,0.3);
+            box-shadow: 0 4px 15px rgba(77,96,255,0.4);
         }
     </style>
 </head>
 <body>
 
-    <!-- Top UI Element -->
     <div class="top-bar">
         <div class="controls">
-            <button class="btn" onclick="resetGame()">&#9664;</button>
+            <button class="btn" onclick="resetGame()">&#10094;</button>
             <button class="btn" onclick="resetGame()">&#8635;</button>
         </div>
         <div class="hearts">
@@ -172,132 +170,112 @@
         </div>
     </div>
 
-    <!-- Main Game Board -->
     <div class="game-board" id="board">
         <div class="overlay" id="overlay">
             <h2 id="overlay-text">Game Over</h2>
             <button onclick="resetGame()">Play Again</button>
         </div>
 
-        <!-- PERFECTLY SOLVABLE MAP (Bade Arrow Sizes Ke Sath Setup) -->
-        <!-- Hint: Pehle corners wale arrows nikalenge jo free hain -->
-        <div class="arrow" style="left: 15px; top: 15px;" data-dir="right"></div>
-        <div class="arrow" style="left: 135px; top: 15px;" data-dir="down"></div>
-        <div class="arrow" style="left: 255px; top: 15px;" data-dir="left"></div>
+        <div class="arrow" style="left: 25px; top: 45px;" data-dir="right" data-row="0" data-col="0"></div>
+        <div class="arrow" style="left: 145px; top: 45px;" data-dir="down" data-row="0" data-col="1"></div>
+        <div class="arrow" style="left: 265px; top: 45px;" data-dir="left" data-row="0" data-col="2"></div>
 
-        <div class="arrow" style="left: 15px; top: 135px;" data-dir="up"></div>
-        <div class="arrow" style="left: 135px; top: 135px;" data-dir="right"></div>
-        <div class="arrow" style="left: 255px; top: 135px;" data-dir="down"></div>
+        <div class="arrow" style="left: 25px; top: 205px;" data-dir="up" data-row="1" data-col="0"></div>
+        <div class="arrow" style="left: 145px; top: 205px;" data-dir="right" data-row="1" data-col="1"></div>
+        <div class="arrow" style="left: 265px; top: 205px;" data-dir="down" data-row="1" data-col="2"></div>
 
-        <div class="arrow" style="left: 15px; top: 255px;" data-dir="right"></div>
-        <div class="arrow" style="left: 135px; top: 255px;" data-dir="left"></div>
-        <div class="arrow" style="left: 255px; top: 255px;" data-dir="up"></div>
-
-        <div class="arrow" style="left: 75px; top: 375px;" data-dir="up"></div>
-        <div class="arrow" style="left: 195px; top: 375px;" data-dir="right"></div>
+        <div class="arrow" style="left: 25px; top: 365px;" data-dir="right" data-row="2" data-col="0"></div>
+        <div class="arrow" style="left: 145px; top: 365px;" data-dir="left" data-row="2" data-col="1"></div>
+        <div class="arrow" style="left: 265px; top: 365px;" data-dir="up" data-row="2" data-col="2"></div>
     </div>
 
     <script>
         let lives = 3;
-        let arrows = [];
+        let arrowData = [];
 
-        function initGame() {
-            arrows = [];
+        function initLevel() {
+            arrowData = [];
             document.querySelectorAll('.arrow').forEach((el, index) => {
-                el.setAttribute('data-id', index);
-                arrows.push({
+                arrowData.push({
                     element: el,
                     id: index,
-                    x: Math.round(el.getBoundingClientRect().left),
-                    y: Math.round(el.getBoundingClientRect().top),
+                    row: parseInt(el.getAttribute('data-row')),
+                    col: parseInt(el.getAttribute('data-col')),
                     dir: el.getAttribute('data-dir'),
                     escaped: false
                 });
                 
-                el.onclick = () => tryMove(index);
+                el.onclick = () => playMove(index);
             });
         }
 
-        function tryMove(id) {
+        function playMove(id) {
             if (lives <= 0) return;
-            
-            // Coordinates update dynamic scale ke liye
-            arrows.forEach(a => {
-                if(!a.escaped) {
-                    a.x = Math.round(a.element.getBoundingClientRect().left);
-                    a.y = Math.round(a.element.getBoundingClientRect().top);
-                }
-            });
-
-            let active = arrows.find(a => a.id === id);
-            if (active.escaped) return;
+            let current = arrowData.find(a => a.id === id);
+            if (current.escaped) return;
 
             let pathClear = true;
-            const buffer = 25; // Collision radius buffer
 
-            arrows.forEach(other => {
+            // Simple aur accurate Grid Collision Checking Logic
+            arrowData.forEach(other => {
                 if (other.id === id || other.escaped) return;
 
-                if (active.dir === 'right') {
-                    if (Math.abs(other.y - active.y) < buffer && other.x > active.x) pathClear = false;
-                }
-                if (active.dir === 'left') {
-                    if (Math.abs(other.y - active.y) < buffer && other.x < active.x) pathClear = false;
-                }
-                if (active.dir === 'down') {
-                    if (Math.abs(other.x - active.x) < buffer && other.y > active.y) pathClear = false;
-                }
-                if (active.dir === 'up') {
-                    if (Math.abs(other.x - active.x) < buffer && other.y < active.y) pathClear = false;
-                }
+                // Right ki taraf block check karega (same row, right column)
+                if (current.dir === 'right' && other.row === current.row && other.col > current.col) pathClear = false;
+                // Left ki taraf block check karega (same row, left column)
+                if (current.dir === 'left' && other.row === current.row && other.col < current.col) pathClear = false;
+                // Down ki taraf block check karega (same column, below row)
+                if (current.dir === 'down' && other.col === current.col && other.row > current.row) pathClear = false;
+                // Up ki taraf block check karega (same column, above row)
+                if (current.dir === 'up' && other.col === current.col && other.row < current.row) pathClear = false;
             });
 
             if (pathClear) {
-                active.escaped = true;
-                let tx = 0, ty = 0;
+                current.escaped = true;
+                let moveX = 0, moveY = 0;
                 
-                if (active.dir === 'right') tx = 800;
-                if (active.dir === 'left') tx = -800;
-                if (active.dir === 'up') ty = -800;
-                if (active.dir === 'down') ty = 800;
+                if (current.dir === 'right') moveX = 700;
+                if (current.dir === 'left') moveX = -700;
+                if (current.dir === 'up') moveY = -700;
+                if (current.dir === 'down') moveY = 700;
 
-                active.element.style.transform += ` translate(${tx}px, ${ty}px)`;
-                active.element.style.opacity = '0';
+                current.element.style.transform += ` translate(${moveX}px, ${moveY}px)`;
+                current.element.style.opacity = '0';
                 
                 setTimeout(() => {
-                    active.element.style.visibility = 'hidden';
-                    checkWin();
+                    current.element.style.visibility = 'hidden';
+                    checkStatus();
                 }, 400);
             } else {
-                // Shake and Red Alert on wrong click
-                let origTransform = active.element.style.transform;
-                active.element.style.transform = `${origTransform} scale(1.2)`;
-                active.element.style.filter = "drop-shadow(0 0 10px #ff4d6d)";
+                // Shake and Alert on collision
+                let origTrans = current.element.style.transform;
+                current.element.style.transform = `${origTrans} scale(1.15)`;
+                current.element.style.filter = "drop-shadow(0 0 8px #ff4d6d)";
                 
                 lives--;
-                updateHearts();
+                updateUiHearts();
 
                 setTimeout(() => {
-                    active.element.style.transform = origTransform;
-                    active.element.style.filter = "none";
-                    if (lives <= 0) showOverlay(false);
+                    current.element.style.transform = origTrans;
+                    current.element.style.filter = "none";
+                    if (lives <= 0) endMatch(false);
                 }, 250);
             }
         }
 
-        function updateHearts() {
+        function updateUiHearts() {
             if (lives === 2) document.getElementById('h3').classList.add('lost');
             if (lives === 1) document.getElementById('h2').classList.add('lost');
             if (lives === 0) document.getElementById('h1').classList.add('lost');
         }
 
-        function checkWin() {
-            if (arrows.every(a => a.escaped)) {
-                showOverlay(true);
+        function checkStatus() {
+            if (arrowData.every(a => a.escaped)) {
+                endMatch(true);
             }
         }
 
-        function showOverlay(win) {
+        function endMatch(win) {
             document.getElementById('overlay').style.display = 'flex';
             document.getElementById('overlay-text').innerText = win ? "Level Cleared! 🎉" : "Game Over! 💥";
         }
@@ -317,12 +295,10 @@
                 if (d === 'left') el.style.transform = 'rotate(180deg)';
                 if (d === 'up') el.style.transform = 'rotate(-90deg)';
             });
-            setTimeout(initGame, 100);
+            initLevel();
         }
 
-        window.onload = () => {
-            setTimeout(initGame, 200);
-        };
+        window.onload = initLevel;
     </script>
 </body>
 </html>
