@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arrow Escape Puzzle</title>
+    <title>Advance Arrow Puzzle</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,135 +12,163 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100vh;
-            color: #333;
+            padding-top: 20px;
+            user-select: none;
         }
 
-        /* Top Bar Configuration */
+        /* Top Controls */
         .top-bar {
             width: 100%;
-            max-width: 400px;
+            max-width: 360px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 10px 20px;
         }
 
         .controls {
             display: flex;
-            gap: 15px;
+            gap: 12px;
         }
 
         .btn {
-            background-color: #e0e5ff;
+            background-color: #eff2fe;
             border: none;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 18px;
-            color: #4d5bfb;
-            transition: 0.2s;
-        }
-
-        .btn:hover {
-            background-color: #cbd5ff;
+            font-size: 20px;
+            color: #4d60ff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .hearts {
             display: flex;
-            gap: 5px;
-            font-size: 24px;
+            gap: 4px;
+            font-size: 22px;
         }
 
         .heart {
-            color: #ff4d6d;
-            transition: opacity 0.3s;
+            transition: transform 0.3s, opacity 0.3s;
         }
 
         .heart.lost {
-            opacity: 0.2;
+            opacity: 0.15;
+            transform: scale(0.8);
         }
 
-        /* Grid Board Layout */
-        .game-container {
-            width: 90vw;
-            max-width: 380px;
-            height: 70vh;
-            max-height: 550px;
-            border: 2px solid transparent;
+        /* Advanced Grid Board */
+        .game-board {
+            width: 340px;
+            height: 460px;
             position: relative;
-            background-image: radial-gradient(#e0e0e0 2px, transparent 2px);
-            background-size: 25px 25px;
+            background-image: radial-gradient(#dcdcdc 2px, transparent 2px);
+            background-size: 40px 40px;
+            background-position: 10px 10px;
+            margin-top: 30px;
+            border-radius: 12px;
             overflow: hidden;
-            margin-top: 10px;
         }
 
-        /* Arrows Properties */
+        /* Highly Styled Custom Arrows */
         .arrow {
             position: absolute;
-            width: 40px;
-            height: 40px;
-            background-color: #1a2238;
-            color: white;
-            border-radius: 8px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
-            font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.5s ease-in, opacity 0.5s;
-            user-select: none;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s;
+            z-index: 2;
         }
 
-        /* Message Overlay */
+        /* Creating exact vector arrow look using CSS */
+        .arrow::before {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 5px;
+            background-color: #161b26;
+            border-radius: 2px;
+            left: 4px;
+        }
+
+        .arrow::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-top: 5px solid #161b26;
+            border-right: 5px solid #161b26;
+            transform: rotate(45deg);
+            right: 4px;
+            border-radius: 1px;
+        }
+
+        /* Rotations based on target direction */
+        .arrow[data-dir="right"] { transform: rotate(0deg); }
+        .arrow[data-dir="down"] { transform: rotate(90deg); }
+        .arrow[data-dir="left"] { transform: rotate(180deg); }
+        .arrow[data-dir="up"] { transform: rotate(-90deg); }
+
+        /* Status Overlays */
         .overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            display: none;
+            gap: 20px;
             z-index: 10;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .overlay h2 {
+            font-size: 28px;
+            color: #161b26;
         }
 
         .overlay button {
-            margin-top: 15px;
-            padding: 10px 20px;
+            padding: 12px 28px;
             font-size: 16px;
-            background-color: #4d5bfb;
+            font-weight: bold;
+            background-color: #161b26;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Section with Controls & Lives -->
     <div class="top-bar">
         <div class="controls">
-            <button class="btn" onclick="resetGame()">&#8592;</button> <!-- Back (Reset) -->
-            <button class="btn" onclick="resetGame()">&#8635;</button> <!-- Refresh -->
+            <button class="btn" onclick="resetGame()">&#10094;</button>
+            <button class="btn" onclick="resetGame()">&#8635;</button>
         </div>
         <div class="hearts">
             <span class="heart" id="h1">❤️</span>
@@ -149,89 +177,105 @@
         </div>
     </div>
 
-    <!-- Main Board -->
-    <div class="game-container" id="board">
+    <div class="game-board" id="board">
         <div class="overlay" id="overlay">
-            <span id="overlay-text">Game Over!</span>
-            <button onclick="resetGame()">Play Again</button>
+            <h2 id="overlay-text">Game Over</h2>
+            <button onclick="resetGame()">Try Again</button>
         </div>
 
-        <!-- Yahan par dummy level layout banaya hai (Aap bad me coordinates badal sakte hain) -->
-        <!-- right, left, up, down directions di gayi hain custom attributes me -->
-        <div class="arrow" style="top: 50px; left: 50px;" data-dir="right" onclick="triggerArrow(this)">➔</div>
-        <div class="arrow" style="top: 50px; left: 200px;" data-dir="down" onclick="triggerArrow(this)">➔</div>
-        <div class="arrow" style="top: 150px; left: 120px;" data-dir="left" onclick="triggerArrow(this)">➔</div>
-        <div class="arrow" style="top: 250px; left: 50px;" data-dir="up" onclick="triggerArrow(this)">➔</div>
-        <div class="arrow" style="top: 300px; left: 220px;" data-dir="right" onclick="triggerArrow(this)">➔</div>
-        <div class="arrow" style="top: 400px; left: 120px;" data-dir="up" onclick="triggerArrow(this)">➔</div>
+        <!-- COMPLEX PUZZLE MATRIX (X: 10 to 290, Y: 10 to 410) -->
+        <!-- Inhe aisi positions di hain ki ek dusre ka rasta block karein -->
+        <div class="arrow" style="left: 10px; top: 10px;" data-dir="right"></div>
+        <div class="arrow" style="left: 90px; top: 10px;" data-dir="down"></div>
+        <div class="arrow" style="left: 90px; top: 90px;" data-dir="left"></div>
+        <div class="arrow" style="left: 10px; top: 90px;" data-dir="up"></div>
+        
+        <div class="arrow" style="left: 170px; top: 50px;" data-dir="down"></div>
+        <div class="arrow" style="left: 170px; top: 170px;" data-dir="right"></div>
+        <div class="arrow" style="left: 250px; top: 170px;" data-dir="up"></div>
+        
+        <div class="arrow" style="left: 50px; top: 250px;" data-dir="right"></div>
+        <div class="arrow" style="left: 130px; top: 250px;" data-dir="up"></div>
+        <div class="arrow" style="left: 130px; top: 170px;" data-dir="left"></div>
+        
+        <div class="arrow" style="left: 210px; top: 290px;" data-dir="down"></div>
+        <div class="arrow" style="left: 210px; top: 370px;" data-dir="left"></div>
+        <div class="arrow" style="left: 90px; top: 370px;" data-dir="up"></div>
     </div>
 
     <script>
         let lives = 3;
-        let escapedCount = 0;
-        const totalArrows = document.querySelectorAll('.arrow').length;
+        let arrows = [];
 
-        // Arrows ko unki direction ke hisab se rotate karne ke liye styling fix karna
-        document.querySelectorAll('.arrow').forEach(arrow => {
-            const dir = arrow.getAttribute('data-dir');
-            if (dir === 'up') arrow.style.transform = 'rotate(-90deg)';
-            if (dir === 'down') arrow.style.transform = 'rotate(90deg)';
-            if (dir === 'left') arrow.style.transform = 'rotate(180deg)';
-        });
+        // Arrow data structure initialization
+        function initArrows() {
+            arrows = [];
+            document.querySelectorAll('.arrow').forEach((el, index) => {
+                el.setAttribute('data-id', index);
+                arrows.push({
+                    element: el,
+                    id: index,
+                    x: parseInt(el.style.left),
+                    y: parseInt(el.style.top),
+                    dir: el.getAttribute('data-dir'),
+                    escaped: false
+                });
+                
+                // Click handler attach karna
+                el.onclick = () => tryMove(index);
+            });
+        }
 
-        function triggerArrow(element) {
-            if (lives <= 0 || element.classList.contains('moving')) return;
+        function tryMove(id) {
+            if (lives <= 0) return;
+            let active = arrows.find(a => a.id === id);
+            if (active.escaped) return;
 
-            const dir = element.getAttribute('data-dir');
-            
-            // Ye check karne ke liye logic ki kya aage ka raasta clear hai?
-            // Demo ke liye: 50px top aur 200px left wale arrows aapas me block hone ka natak karenge
-            if (element.style.top === '50px' && element.style.left === '50px' && document.querySelector('[style*="top: 50px"][style*="left: 200px"]:not(.escaped)')) {
-                // Rasta block hai!
-                failMove(element);
-                return;
+            let pathClear = true;
+
+            // Real-time Collision Detection Logic
+            arrows.forEach(other => {
+                if (other.id === id || other.escaped) return;
+
+                if (active.dir === 'right' && other.y === active.y && other.x > active.x) pathClear = false;
+                if (active.dir === 'left' && other.y === active.y && other.x < active.x) pathClear = false;
+                if (active.dir === 'down' && other.x === active.x && other.y > active.y) pathClear = false;
+                if (active.dir === 'up' && other.x === active.x && other.y < active.y) pathClear = false;
+            });
+
+            if (pathClear) {
+                // Success Escape
+                active.escaped = true;
+                let launchX = 0, launchY = 0;
+                
+                if (active.dir === 'right') launchX = 500;
+                if (active.dir === 'left') launchX = -500;
+                if (active.dir === 'up') launchY = -500;
+                if (active.dir === 'down') launchY = 500;
+
+                // Absolute translation handling based on rotation angle
+                active.element.style.transform += ` translate(${launchX}px, ${launchY}px)`;
+                active.element.style.opacity = '0';
+                
+                setTimeout(() => {
+                    active.element.style.visibility = 'hidden';
+                    checkGameStatus();
+                }, 400);
+            } else {
+                // Collision Hit (Wrong Move)
+                let currentTransform = active.element.style.transform;
+                active.element.style.transform = `${currentTransform} scale(1.25)`;
+                active.element.style.filter = "drop-shadow(0 0 8px #ff4d6d)";
+                
+                lives--;
+                updateHearts();
+
+                setTimeout(() => {
+                    active.element.style.transform = currentTransform;
+                    active.element.style.filter = "none";
+                    if (lives <= 0) endGame(false);
+                }, 250);
             }
-
-            // Agar rasta clear hai toh arrow board ke bahar escape karega
-            escapeMove(element, dir);
-        }
-
-        function escapeMove(element, dir) {
-            element.classList.add('moving');
-            
-            // Direction ke hisab se screen ke bahar fekne ka logic
-            let targetX = 0, targetY = 0;
-            if (dir === 'right') { targetX = 600; element.style.transform = 'translateX(600px) rotate(0deg)'; }
-            if (dir === 'left') { targetX = -600; element.style.transform = 'translateX(-600px) rotate(180deg)'; }
-            if (dir === 'up') { targetY = -600; element.style.transform = 'translateY(-600px) rotate(-90deg)'; }
-            if (dir === 'down') { targetY = 600; element.style.transform = 'translateY(600px) rotate(90deg)'; }
-
-            element.style.opacity = '0';
-            
-            setTimeout(() => {
-                element.classList.add('escaped');
-                element.style.display = 'none';
-                escapedCount++;
-                checkWinCondition();
-            }, 500);
-        }
-
-        function failMove(element) {
-            // Galat chalne par shake animation effect
-            const originalTransform = element.style.transform;
-            element.style.transform = `${originalTransform} scale(1.2)`;
-            element.style.backgroundColor = '#ff4d6d';
-            
-            lives--;
-            updateHearts();
-
-            setTimeout(() => {
-                element.style.transform = originalTransform;
-                element.style.backgroundColor = '#1a2238';
-                if (lives <= 0) {
-                    endGame(false);
-                }
-            }, 300);
         }
 
         function updateHearts() {
@@ -240,38 +284,39 @@
             if (lives === 0) document.getElementById('h1').classList.add('lost');
         }
 
-        function checkWinCondition() {
-            if (escapedCount === totalArrows) {
+        function checkGameStatus() {
+            if (arrows.every(a => a.escaped)) {
                 endGame(true);
             }
         }
 
-        function endGame(isWin) {
-            const overlay = document.getElementById('overlay');
-            const text = document.getElementById('overlay-text');
-            overlay.style.display = 'flex';
-            text.innerText = isWin ? "Level Cleared! 🎉" : "Game Over! 😢";
+        function endGame(win) {
+            document.getElementById('overlay').style.display = 'flex';
+            document.getElementById('overlay-text').innerText = win ? "Level Cleared! ✨" : "Game Over! 💥";
         }
 
         function resetGame() {
             lives = 3;
-            escapedCount = 0;
             document.getElementById('overlay').style.display = 'none';
-            
             document.querySelectorAll('.heart').forEach(h => h.classList.remove('lost'));
             
-            document.querySelectorAll('.arrow').forEach(arrow => {
-                arrow.classList.remove('moving', 'escaped');
-                arrow.style.display = 'flex';
-                arrow.style.opacity = '1';
-                
-                const dir = arrow.getAttribute('data-dir');
-                if (dir === 'right') arrow.style.transform = 'rotate(0deg)';
-                if (dir === 'left') arrow.style.transform = 'rotate(180deg)';
-                if (dir === 'up') arrow.style.transform = 'rotate(-90deg)';
-                if (dir === 'down') arrow.style.transform = 'rotate(90deg)';
+            document.querySelectorAll('.arrow').forEach(el => {
+                el.style.visibility = 'visible';
+                el.style.opacity = '1';
+                el.style.filter = "none";
+                // Reset standard rotation
+                const d = el.getAttribute('data-dir');
+                if (d === 'right') el.style.transform = 'rotate(0deg)';
+                if (d === 'down') el.style.transform = 'rotate(90deg)';
+                if (d === 'left') el.style.transform = 'rotate(180deg)';
+                if (d === 'up') el.style.transform = 'rotate(-90deg)';
             });
+            initArrows();
         }
+
+        // Run on load
+        initArrows();
     </script>
 </body>
 </html>
+            
